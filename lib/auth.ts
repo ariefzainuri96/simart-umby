@@ -7,8 +7,8 @@ import {
     isRedirectError,
     RedirectType,
 } from "next/dist/client/components/redirect";
-import { db } from "./db";
-import { UserTable } from "./db/schema";
+import { db } from "../db";
+import { UserTable } from "../db/schema";
 import { eq } from "drizzle-orm";
 import bcrypt from "bcrypt";
 
@@ -42,33 +42,6 @@ export async function authenticate(prevState: any, formData: FormData) {
         console.log(error);
 
         if (isRedirectError(error)) throw error;
-        return { status: 401, message: `${error}` };
-    } finally {
-        redirect("/");
-    }
-}
-
-export async function register(prevState: any, formData: FormData) {
-    const email = formData.get("email")?.toString() ?? "";
-    const password = formData.get("password")?.toString() ?? "";
-    const hashedPassword = await bcrypt.hash(password, 10);
-
-    try {
-        await db.insert(UserTable).values({
-            email: email,
-            password: hashedPassword,
-        });
-
-        const user: TUser = (
-            await db.select().from(UserTable).where(eq(UserTable.email, email))
-        )[0];
-
-        await setCookies(user.email, user.id);
-    } catch (error) {
-        console.log(error);
-
-        if (isRedirectError(error)) throw error;
-
         return { status: 401, message: `${error}` };
     } finally {
         redirect("/");

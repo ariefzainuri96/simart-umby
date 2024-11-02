@@ -1,6 +1,6 @@
 "use client";
 
-import { logout } from "@/auth_lib";
+import { logout } from "@/lib/auth";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";

@@ -4,6 +4,7 @@ import "./globals.css";
 import { HomeHeader } from "./(components)/home-header";
 import { headers } from "next/headers";
 import { twMerge } from "tailwind-merge";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -34,14 +35,16 @@ export default function RootLayout({
                 }
             >
                 {showHeader && <HomeHeader />}
-                <div
-                    className={twMerge(
-                        "h-full w-full",
-                        showHeader && "pt-[3.5rem]",
-                    )}
-                >
-                    {children}
-                </div>
+                <AppRouterCacheProvider>
+                    <div
+                        className={twMerge(
+                            "h-full w-full",
+                            showHeader && "pt-[3.5rem]",
+                        )}
+                    >
+                        {children}
+                    </div>
+                </AppRouterCacheProvider>
             </body>
         </html>
     );

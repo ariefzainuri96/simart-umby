@@ -1,6 +1,6 @@
 "use server";
 
-import { decrypt } from "@/auth_lib";
+import { decrypt } from "@/lib/auth";
 import { revalidatePath } from "next/cache";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { cookies } from "next/headers";

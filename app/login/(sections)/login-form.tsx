@@ -7,6 +7,8 @@ import React from "react";
 import { useFormState, useFormStatus } from "react-dom";
 import UmbyLogo from "@/public/images/umby-logo.png";
 import TextField from "@mui/material/TextField";
+import { CustomCheck } from "@/components/custom-check";
+import IcWarning from "@/public/icons/ic-warning.svg";
 
 export const LoginForm = () => {
     const [error, dispatch] = useFormState(authenticate, undefined);
@@ -36,50 +38,65 @@ export const LoginForm = () => {
     });
 
     return (
-        <>
-            <Image src={UmbyLogo} alt="Umby Logo" width={162} height={158} />
-            <h1 className="text-bluePrimary mt-[3rem] text-[1.75rem] font-semibold">
-                SIMART
-            </h1>
-            <span className="text-textSecondary mt-[0.5rem] text-[1rem]">
-                Sistem Informasi Aset Rumah Tangga
-            </span>
-            <form className="mt-[3.5rem] max-w-[600px]" action={dispatch}>
-                <TextField
-                    className="w-full"
-                    variant="outlined"
-                    label="NIS"
-                    name="nis"
-                    sx={styles}
+        <div className="h-full w-full max-w-[600px] overflow-y-auto lg:overflow-y-hidden">
+            <div className="flex h-full w-full flex-col p-4">
+                <Image
+                    src={UmbyLogo}
+                    alt="Umby Logo"
+                    width={162}
+                    height={158}
+                    className="self-center"
                 />
-                <input
-                    required
-                    className="product-input mt-2 w-full"
-                    type="password"
-                    name="password"
-                    placeholder="Input password"
-                />
-                <SubmitButton />
-            </form>
-            <span className="mt-4 self-center">
-                {"Don't"} have an account?{" "}
-                <span
-                    onClick={(e) => {
-                        e.preventDefault();
-
-                        router.push("/register");
-                    }}
-                    className="cursor-pointer font-semibold text-blue-500 underline"
-                >
-                    Register
+                <h1 className="mt-[3rem] self-center text-[1.75rem] font-semibold text-bluePrimary">
+                    SIMART
+                </h1>
+                <span className="mt-[0.5rem] self-center text-[1rem] text-textSecondary">
+                    Sistem Informasi Aset Rumah Tangga
                 </span>
-            </span>
-            {error && (
-                <span className="mt-2 text-sm font-normal text-red-500">
-                    {error.message}
-                </span>
-            )}
-        </>
+                <form className="mt-[3.5rem]" action={dispatch}>
+                    <TextField
+                        className="w-full"
+                        variant="outlined"
+                        label="NIS"
+                        name="nis"
+                        sx={styles}
+                        required
+                    />
+                    <div className="mt-4">
+                        <TextField
+                            className="w-full"
+                            variant="outlined"
+                            label="Password"
+                            name="password"
+                            type="password"
+                            required
+                            sx={styles}
+                        />
+                    </div>
+                    <SubmitButton />
+                    <div className="mt-4 flex flex-row  items-center">
+                        <CustomCheck
+                            id="ingatkan-saya"
+                            label="Ingatkan Saya"
+                            className="flex-1"
+                            name="rememberMe"
+                        />
+                        <span className="text-blue1 cursor-pointer py-1 text-[0.875rem] font-medium">
+                            Lupa Password?
+                        </span>
+                    </div>
+                </form>
+                <div className="hidden lg:block lg:flex-1" />
+                <div className="mb-4 mt-10 flex w-full flex-row items-center gap-4 lg:mt-0">
+                    <IcWarning width={41} height={36} />
+                    <span className="flex-1 text-[0.75rem] text-textSecondary">
+                        Untuk alasan keamanan, silahkan logout dan tutup browser
+                        Anda setelah selesai menggunakan layanan yang memerlukan
+                        otentikasi!
+                    </span>
+                </div>
+            </div>
+        </div>
     );
 };
 
@@ -91,11 +108,11 @@ const SubmitButton = () => {
             type="submit"
             aria-disabled={pending}
             className={
-                "btn-filled-primary mt-4 w-full " +
-                (pending ? "bg-slate-400 hover:bg-slate-400" : "")
+                "mt-[2rem] w-full rounded-[0.5rem] bg-bluePrimary py-[0.75rem] text-[1rem] font-medium text-white " +
+                (pending && "bg-slate-400")
             }
         >
-            Login
+            Login Local
         </button>
     );
 };

@@ -23,6 +23,7 @@ const config: Config = {
                 bluePrimary: "#18469C",
                 textSecondary: "#465478",
                 gray1: "#BFBFBF",
+                blue1: "#2F80ED",
             },
         },
     },

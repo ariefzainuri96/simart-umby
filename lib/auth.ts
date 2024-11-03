@@ -19,25 +19,29 @@ const key = new TextEncoder().encode(secretKey);
 
 export async function authenticate(prevState: any, formData: FormData) {
     try {
-        const email = formData.get("email")?.toString() ?? "";
+        const nis = formData.get("nis")?.toString() ?? "";
         const password = formData.get("password")?.toString() ?? "";
+        const rememberMe =
+            (formData.get("rememberMe")?.toString() ?? "") === "on";
 
-        const user = await db
-            .select()
-            .from(UserTable)
-            .where(eq(UserTable.email, email));
+        console.log(nis, password, rememberMe);
 
-        if (user.length === 0) {
-            return { status: 401, message: "Invalid email or password" };
-        }
+        // const user = await db
+        //     .select()
+        //     .from(UserTable)
+        //     .where(eq(UserTable.email, email));
 
-        if (!bcrypt.compareSync(password, user[0].password)) {
-            return { status: 401, message: "Invalid email or password" };
-        }
+        // if (user.length === 0) {
+        //     return { status: 401, message: "Invalid email or password" };
+        // }
 
-        console.log(user[0]);
+        // if (!bcrypt.compareSync(password, user[0].password)) {
+        //     return { status: 401, message: "Invalid email or password" };
+        // }
 
-        await setCookies(email, user[0].id);
+        // console.log(user[0]);
+
+        // await setCookies(email, user[0].id);
     } catch (error) {
         console.log(error);
 

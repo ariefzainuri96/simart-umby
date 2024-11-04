@@ -1,4 +1,9 @@
-import { LoginForm } from "./(sections)/login-form";
+import dynamic from "next/dynamic";
+import { Announcement } from "./(sections)/announcement";
+
+const LoginForm = dynamic<{}>(() => import("./(sections)/login-form"), {
+    ssr: false,
+});
 
 const Login = () => {
     return (
@@ -9,7 +14,9 @@ const Login = () => {
                     <LoginForm />
                 </div>
                 {/* right side */}
-                <div className="hidden bg-red-50 lg:block lg:basis-2/3"></div>
+                <div className="hidden lg:block lg:basis-2/3">
+                    <Announcement />
+                </div>
             </div>
         </div>
     );

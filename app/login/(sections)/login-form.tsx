@@ -3,14 +3,13 @@
 import { authenticate } from "@/lib/auth";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
 import { useFormState, useFormStatus } from "react-dom";
-import UmbyLogo from "@/public/images/umby-logo.png";
 import TextField from "@mui/material/TextField";
 import { CustomCheck } from "@/components/custom-check";
 import IcWarning from "@/public/icons/ic-warning.svg";
+import UmbyLogo from "@/public/images/umby-logo.png";
 
-export const LoginForm = () => {
+const LoginForm = () => {
     const [error, dispatch] = useFormState(authenticate, undefined);
     const router = useRouter();
 
@@ -81,14 +80,19 @@ export const LoginForm = () => {
                             className="flex-1"
                             name="rememberMe"
                         />
-                        <span className="text-blue1 cursor-pointer py-1 text-[0.875rem] font-medium">
+                        <span className="cursor-pointer py-1 text-[0.875rem] font-medium text-blue1">
                             Lupa Password?
                         </span>
                     </div>
                 </form>
                 <div className="hidden lg:block lg:flex-1" />
                 <div className="mb-4 mt-10 flex w-full flex-row items-center gap-4 lg:mt-0">
-                    <IcWarning width={41} height={36} />
+                    <Image
+                        src={IcWarning}
+                        alt="warning"
+                        width={41}
+                        height={36}
+                    />
                     <span className="flex-1 text-[0.75rem] text-textSecondary">
                         Untuk alasan keamanan, silahkan logout dan tutup browser
                         Anda setelah selesai menggunakan layanan yang memerlukan
@@ -116,3 +120,5 @@ const SubmitButton = () => {
         </button>
     );
 };
+
+export default LoginForm;

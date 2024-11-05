@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
-import { HomeHeader } from "./(components)/home-header";
 import { headers } from "next/headers";
 import { twMerge } from "tailwind-merge";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import "./globals.css";
+import SidebarSection from "./(sections)/sidebar-section";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -20,12 +20,8 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const headersList = headers();
-    const activePath = (headersList.get("x-url") ?? "").split("/").pop();
-
-    const hiddenHeaderPath: string[] = ["login", "register"];
-
-    const showHeader = !hiddenHeaderPath.includes(activePath ?? "");
+    // const headersList = headers();
+    // const activePath = (headersList.get("x-url") ?? "").split("/").pop();
 
     return (
         <html lang="en">
@@ -34,15 +30,13 @@ export default function RootLayout({
                     inter.className + " h-screen w-screen overflow-hidden"
                 }
             >
-                {showHeader && <HomeHeader />}
                 <AppRouterCacheProvider>
-                    <div
-                        className={twMerge(
-                            "h-full w-full",
-                            showHeader && "pt-[3.5rem]",
-                        )}
-                    >
-                        {children}
+                    <div className={twMerge("h-full w-full")}>
+                        <div className="flex h-full w-full flex-row">
+                            {/* sidebar */}
+                            <SidebarSection />
+                            {children}
+                        </div>
                     </div>
                 </AppRouterCacheProvider>
             </body>

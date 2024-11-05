@@ -72,7 +72,8 @@ const LoginForm = () => {
                             sx={styles}
                         />
                     </div>
-                    <SubmitButton />
+                    <LoginLocalButton />
+                    <LoginSSOButton />
                     <div className="mt-4 flex flex-row  items-center">
                         <CustomCheck
                             id="ingatkan-saya"
@@ -104,7 +105,7 @@ const LoginForm = () => {
     );
 };
 
-const SubmitButton = () => {
+const LoginLocalButton = () => {
     const { pending } = useFormStatus();
 
     return (
@@ -117,6 +118,21 @@ const SubmitButton = () => {
             }
         >
             Login Local
+        </button>
+    );
+};
+
+const LoginSSOButton = () => {
+    // const { pending } = useFormStatus();
+
+    return (
+        <button
+            type="submit"
+            className={
+                "mt-[1rem] w-full rounded-[0.5rem] border-[1px] border-bluePrimary py-[0.75rem] text-[1rem] font-medium text-bluePrimary"
+            }
+        >
+            Login SSO
         </button>
     );
 };

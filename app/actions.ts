@@ -7,8 +7,8 @@ import { cookies } from "next/headers";
 import { ProductTable } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { db } from "@/db/db";
-import { delay } from "@/helper";
 import { zProductSchema } from "@/db/zod-schema";
+import { delay } from "@/lib/utils";
 
 export type TProduct = typeof ProductTable.$inferSelect;
 

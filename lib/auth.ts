@@ -26,6 +26,8 @@ export async function authenticate(prevState: any, formData: FormData) {
 
         console.log(nis, password, rememberMe);
 
+        await setCookies(nis, "123");
+
         // const user = await db
         //     .select()
         //     .from(UserTable)

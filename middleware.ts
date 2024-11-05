@@ -7,8 +7,12 @@ export function middleware(request: NextRequest) {
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set("x-url", request.url);
 
+    if (currentUser && !(request.nextUrl.pathname === "/")) {
+        return NextResponse.redirect(new URL("/", request.url));
+    }
+
     // redirect to login if cookies is inactive
-    if (!currentUser && !request.nextUrl.pathname.startsWith("/login")) {
+    if (!currentUser && !(request.nextUrl.pathname === "/login")) {
         return NextResponse.redirect(new URL("/login", request.url));
     }
 
@@ -20,6 +24,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    // matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
-    matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)", "/"],
+    matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
 };

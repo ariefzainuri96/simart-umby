@@ -3,8 +3,13 @@ import { Inter } from "next/font/google";
 import { headers } from "next/headers";
 import { twMerge } from "tailwind-merge";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import "./globals.css";
 import SidebarSection from "./(sections)/sidebar-section";
+import "./globals.css";
+// import dynamic from "next/dynamic";
+
+// const SidebarSection = dynamic(() => import("./(sections)/sidebar-section"), {
+//     ssr: false,
+// });
 
 const inter = Inter({
     subsets: ["latin"],
@@ -20,8 +25,11 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    // const headersList = headers();
-    // const activePath = (headersList.get("x-url") ?? "").split("/").pop();
+    const headersList = headers();
+    const activePath = (headersList.get("x-url") ?? "").split("/").pop();
+
+    const hideSidebarPath = ["login"];
+    const hideSidebar = hideSidebarPath.includes(activePath ?? "");
 
     return (
         <html lang="en">
@@ -34,7 +42,9 @@ export default function RootLayout({
                     <div className={twMerge("h-full w-full")}>
                         <div className="flex h-full w-full flex-row">
                             {/* sidebar */}
-                            <SidebarSection />
+                            <SidebarSection
+                                className={hideSidebar ? "hidden" : ""}
+                            />
                             {children}
                         </div>
                     </div>

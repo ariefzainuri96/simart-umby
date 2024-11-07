@@ -1,3 +1,5 @@
+// "use client";
+
 import { MenuModel } from "@/model/dashboard/menu-model";
 import Image from "next/image";
 import {
@@ -9,8 +11,11 @@ import {
 import { MenuChildItem } from "./menu-child-item";
 import IcDashboard from "@/public/icons/ic-dashboard.svg";
 import IcSettings from "@/public/icons/ic-settings.svg";
-import { twMerge } from "tailwind-merge";
+import IcKonfigurasiBisnis from "@/public/icons/ic-konfigurasi-bisnis.svg";
+import IcMasterData from "@/public/icons/ic-master-data.svg";
+import IcManajemenInventaris from "@/public/icons/ic-manajemen-inventaris.svg";
 import { ChevronDown } from "lucide-react";
+import Link from "next/link";
 
 export const MenuItem = ({ data }: { data: MenuModel }) => {
     function selectedIcon(): any {
@@ -19,6 +24,12 @@ export const MenuItem = ({ data }: { data: MenuModel }) => {
                 return IcDashboard;
             case "konfigurasi-umum":
                 return IcSettings;
+            case "konfigurasi-bisnis":
+                return IcKonfigurasiBisnis;
+            case "master-data":
+                return IcMasterData;
+            case "manajemen-inventaris":
+                return IcManajemenInventaris;
             default:
                 break;
         }
@@ -60,5 +71,10 @@ export const MenuItem = ({ data }: { data: MenuModel }) => {
         );
     }
 
-    return <Content />;
+    // return <Content />;
+    return (
+        <Link href={data.path!!}>
+            <Content />
+        </Link>
+    );
 };

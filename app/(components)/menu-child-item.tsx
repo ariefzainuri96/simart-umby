@@ -1,3 +1,5 @@
+"use client";
+
 import {
     Accordion,
     AccordionContent,
@@ -6,13 +8,42 @@ import {
 } from "@/components/ui/accordion";
 import { MenuChildModel } from "@/model/dashboard/menu-model";
 import { ChevronDown } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { twMerge } from "tailwind-merge";
 
-export const MenuChildItem = ({ data }: { data: MenuChildModel }) => {
+export const MenuChildItem = ({
+    data,
+    isLayer,
+}: {
+    data: MenuChildModel;
+    isLayer?: boolean;
+}) => {
+    const pathname = usePathname();
+
+    const isSelected = () => `${pathname}` === (data.path ?? "");
+
+    const Indicator = () => {
+        return (
+            <>
+                {isLayer && <div className="size-[1.25rem]" />}
+                <div
+                    className={twMerge(
+                        "flex size-[1.25rem] items-center justify-center opacity-0",
+                        isSelected() && "opacity-100",
+                    )}
+                >
+                    <div className="size-[.75rem] rounded-full bg-[#05DCA2]" />
+                </div>
+            </>
+        );
+    };
+
     const Content = () => {
         return (
             <div className="flex w-full flex-row items-center gap-[1rem] p-4 hover:bg-[#082F76]">
                 {/* indicator */}
-                <div />
+                <Indicator />
                 <span className="flex-1 text-start text-[0.875rem] font-semibold text-white">
                     {data.title}
                 </span>
@@ -32,7 +63,13 @@ export const MenuChildItem = ({ data }: { data: MenuChildModel }) => {
                 <AccordionContent>
                     <Accordion type="single" collapsible>
                         {(data.child ?? []).map((item, index) => {
-                            return <MenuChildItem key={index} data={item} />;
+                            return (
+                                <MenuChildItem
+                                    key={index}
+                                    isLayer={true}
+                                    data={item}
+                                />
+                            );
                         })}
                     </Accordion>
                 </AccordionContent>
@@ -40,5 +77,9 @@ export const MenuChildItem = ({ data }: { data: MenuChildModel }) => {
         );
     }
 
-    return <Content />;
+    return (
+        <Link href={data.path!!}>
+            <Content />
+        </Link>
+    );
 };

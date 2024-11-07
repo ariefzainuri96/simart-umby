@@ -1,5 +1,5 @@
 const Loading = () => {
-    return <div>Loading...</div>;
+    return <div>Loading Pengaturan Umum...</div>;
 };
 
 export default Loading;

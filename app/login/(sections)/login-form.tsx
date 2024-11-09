@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField";
 import { CustomCheck } from "@/components/custom-check";
 import IcWarning from "@/public/icons/ic-warning.svg";
 import UmbyLogo from "@/public/images/umby-logo.png";
+import { Button } from "@/components/ui/button";
 
 const LoginForm = () => {
     const [error, dispatch] = useFormState(authenticate, undefined);
@@ -74,6 +75,16 @@ const LoginForm = () => {
                     </div>
                     <LoginLocalButton />
                     <LoginSSOButton />
+                    <Button
+                        onClick={(e) => {
+                            e.preventDefault();
+
+                            router.push("/register");
+                        }}
+                        className="mt-2 w-full"
+                    >
+                        Register
+                    </Button>
                     <div className="mt-4 flex flex-row  items-center">
                         <CustomCheck
                             id="ingatkan-saya"

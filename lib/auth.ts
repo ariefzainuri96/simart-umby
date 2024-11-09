@@ -82,6 +82,4 @@ async function setCookies(email: string, userId: string) {
 
 export async function logout() {
     cookies().delete("currentUser");
-
-    redirect("/login", RedirectType.replace);
 }

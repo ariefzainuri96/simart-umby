@@ -1,5 +1,3 @@
-// "use client";
-
 import { MenuModel } from "@/model/dashboard/menu-model";
 import Image from "next/image";
 import {

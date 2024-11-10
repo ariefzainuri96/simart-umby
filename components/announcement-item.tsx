@@ -1,5 +1,5 @@
 import React from "react";
-import { TAnnouncement } from "../model/t-announcement";
+import { TAnnouncement } from "../app/login/model/t-announcement";
 
 export const AnnouncementItem = ({ data }: { data: TAnnouncement }) => {
     return (

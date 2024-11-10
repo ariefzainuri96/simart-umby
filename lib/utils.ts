@@ -8,3 +8,13 @@ export function cn(...inputs: ClassValue[]) {
 export function delay(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+export function toTitleCase(sentence: string): string {
+    return sentence
+        .split(" ")
+        .map(
+            (word) =>
+                word.charAt(0).toUpperCase() + word.slice(1).toLowerCase(),
+        )
+        .join(" ");
+}

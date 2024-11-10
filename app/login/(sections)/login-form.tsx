@@ -14,6 +14,8 @@ const LoginForm = () => {
     const [error, dispatch] = useFormState(authenticate, undefined);
     const router = useRouter();
 
+    console.log(error);
+
     const styles = () => ({
         "& .MuiOutlinedInput-root": {
             "& fieldset": {

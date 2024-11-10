@@ -1,16 +1,21 @@
+"use client";
+
 import { Accordion } from "@/components/ui/accordion";
 import { menuList } from "@/model/dashboard/menu-model";
 import { MenuItem } from "../(components)/menu-item";
 import { twMerge } from "tailwind-merge";
 import Image from "next/image";
 import ImgLogo from "@/public/images/img-logo.png";
+import { usePathname } from "next/navigation";
 
-export default function SidebarSection({ className }: { className?: string }) {
+export default function SidebarSection() {
+    const pathname = usePathname();
+
     return (
         <div
             className={twMerge(
                 "h-full w-full max-w-[325px] bg-blue2",
-                className,
+                pathname === "/login" && "hidden",
             )}
         >
             <div className="flex flex-col">

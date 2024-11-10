@@ -12,20 +12,13 @@ export function middleware(request: NextRequest) {
     requestHeaders.set("x-url", request.url);
 
     if (!currentUser && !isInPublicRoutes) {
-        return NextResponse.redirect(new URL("/login", request.url));
+        const response = NextResponse.redirect(new URL("/login", request.url));
+        return response;
     }
 
     if (currentUser && isInPublicRoutes) {
         return NextResponse.redirect(new URL("/", request.url));
     }
-    // if (currentUser && !request.nextUrl.pathname.startsWith("/")) {
-    //     return NextResponse.redirect(new URL("/", request.url));
-    // }
-
-    // // redirect to login if cookies is inactive
-    // if (!currentUser && !request.nextUrl.pathname.startsWith("/login")) {
-    //     return NextResponse.redirect(new URL("/login", request.url));
-    // }
 
     return NextResponse.next({
         request: {

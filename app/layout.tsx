@@ -1,15 +1,11 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { headers } from "next/headers";
 import { twMerge } from "tailwind-merge";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
-import SidebarSection from "./(sections)/sidebar-section";
+import DashboardHeader from "./(sections)/dashboard-header";
 import "./globals.css";
-// import dynamic from "next/dynamic";
-
-// const SidebarSection = dynamic(() => import("./(sections)/sidebar-section"), {
-//     ssr: false,
-// });
+import SidebarSection from "./(sections)/sidebar-section";
+import React from "react";
 
 const inter = Inter({
     subsets: ["latin"],
@@ -25,11 +21,13 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const headersList = headers();
-    const activePath = (headersList.get("x-url") ?? "").split("/").pop();
+    // const headersList = headers();
+    // const activePath = (headersList.get("x-url") ?? "").split("/").pop();
 
-    const hideSidebarPath = ["login"];
-    const hideSidebar = hideSidebarPath.includes(activePath ?? "");
+    // console.log(activePath);
+
+    // const hideSidebarPath = ["login"];
+    // const hideSidebar = hideSidebarPath.includes(activePath ?? "");
 
     return (
         <html lang="en">
@@ -42,10 +40,11 @@ export default function RootLayout({
                     <div className={twMerge("h-full w-full")}>
                         <div className="flex h-full w-full flex-row">
                             {/* sidebar */}
-                            <SidebarSection
-                                className={hideSidebar ? "hidden" : ""}
-                            />
-                            {children}
+                            <SidebarSection />
+                            <div className="flex h-full flex-1 flex-col">
+                                <DashboardHeader />
+                                <div className="w-full flex-1">{children}</div>
+                            </div>
                         </div>
                     </div>
                 </AppRouterCacheProvider>

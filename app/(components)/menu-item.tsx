@@ -1,3 +1,5 @@
+"use client";
+
 import { MenuModel } from "@/model/dashboard/menu-model";
 import Image from "next/image";
 import {
@@ -14,8 +16,12 @@ import IcMasterData from "@/public/icons/ic-master-data.svg";
 import IcManajemenInventaris from "@/public/icons/ic-manajemen-inventaris.svg";
 import { ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
+import { twMerge } from "tailwind-merge";
 
 export const MenuItem = ({ data }: { data: MenuModel }) => {
+    const [clicked, setClicked] = useState(false);
+
     function selectedIcon(): any {
         switch (data.icon) {
             case "dashboard":
@@ -46,7 +52,12 @@ export const MenuItem = ({ data }: { data: MenuModel }) => {
                     {data.title}
                 </span>
                 {data.child && (
-                    <ChevronDown className="h-4 w-4 shrink-0 text-white transition-transform duration-200" />
+                    <ChevronDown
+                        className={twMerge(
+                            "h-4 w-4 shrink-0 transform text-white transition-transform duration-200 ease-in-out",
+                            clicked && "rotate-180",
+                        )}
+                    />
                 )}
             </div>
         );
@@ -55,7 +66,11 @@ export const MenuItem = ({ data }: { data: MenuModel }) => {
     if (data.child) {
         return (
             <AccordionItem value={data.title}>
-                <AccordionTrigger className="p-0" hideIcon={true}>
+                <AccordionTrigger
+                    onClick={() => setClicked(!clicked)}
+                    className="p-0"
+                    hideIcon={true}
+                >
                     <Content />
                 </AccordionTrigger>
                 <AccordionContent>

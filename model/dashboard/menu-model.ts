@@ -22,23 +22,23 @@ export const menuList: MenuModel[] = [
         icon: "konfigurasi-umum",
         child: [
             {
-                title: "Pengaturan Umum",
-                path: "/pengaturan-umum",
+                title: "Pengumuman",
+                path: "/konfigurasi-umum/pengumuman",
             },
             {
                 title: "Profil Institusi",
-                path: "/profil-institusi",
+                path: "/konfigurasi-umum/profil-institusi",
             },
             {
                 title: "Sistem Setting",
                 child: [
                     {
                         title: "Format Penomoran",
-                        path: "/format-penomoran",
+                        path: "/konfigurasi-umum/sistem-setting/format-penomoran",
                     },
                     {
                         title: "Signature",
-                        path: "/signature",
+                        path: "/konfigurasi-umum/sistem-setting/signature",
                     },
                 ],
             },

@@ -8,8 +8,8 @@ export function middleware(request: NextRequest) {
     const currentUser = cookies().get("currentUser")?.value;
     const isInPublicRoutes = publicRoutes.includes(pathname);
 
-    const requestHeaders = new Headers(request.headers);
-    requestHeaders.set("x-url", request.url);
+    // const requestHeaders = new Headers(request.headers);
+    // requestHeaders.set("x-url", request.url);
 
     if (!currentUser && !isInPublicRoutes) {
         const response = NextResponse.redirect(new URL("/login", request.url));
@@ -20,11 +20,7 @@ export function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL("/", request.url));
     }
 
-    return NextResponse.next({
-        request: {
-            headers: requestHeaders,
-        },
-    });
+    return NextResponse.next();
 }
 
 export const config = {

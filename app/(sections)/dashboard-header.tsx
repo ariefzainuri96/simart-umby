@@ -16,7 +16,7 @@ import { twMerge } from "tailwind-merge";
 const DashboardHeader = () => {
     const pathname = usePathname();
     const title = toTitleCase(
-        pathname.substring(1, pathname.length).replaceAll("-", " "),
+        (pathname.split("/").pop() ?? "").replaceAll("-", " "),
     );
     const [pending, startTransition] = useTransition();
 

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Poppins } from "next/font/google";
 import { twMerge } from "tailwind-merge";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import DashboardHeader from "./(sections)/dashboard-header";
@@ -7,8 +7,9 @@ import "./globals.css";
 import SidebarSection from "./(sections)/sidebar-section";
 import React from "react";
 
-const inter = Inter({
+const poppins = Poppins({
     subsets: ["latin"],
+    weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -21,19 +22,11 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    // const headersList = headers();
-    // const activePath = (headersList.get("x-url") ?? "").split("/").pop();
-
-    // console.log(activePath);
-
-    // const hideSidebarPath = ["login"];
-    // const hideSidebar = hideSidebarPath.includes(activePath ?? "");
-
     return (
         <html lang="en">
             <body
                 className={
-                    inter.className + " h-screen w-screen overflow-hidden"
+                    poppins.className + " h-screen w-screen overflow-hidden"
                 }
             >
                 <AppRouterCacheProvider>

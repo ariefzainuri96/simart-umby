@@ -77,7 +77,7 @@ const LoginForm = () => {
                     </div>
                     <LoginLocalButton />
                     <LoginSSOButton />
-                    <Button
+                    {/* <Button
                         onClick={(e) => {
                             e.preventDefault();
 
@@ -86,7 +86,7 @@ const LoginForm = () => {
                         className="mt-2 w-full"
                     >
                         Register
-                    </Button>
+                    </Button> */}
                     <div className="mt-4 flex flex-row  items-center">
                         <CustomCheck
                             id="ingatkan-saya"

@@ -28,6 +28,10 @@
     .bg-profile {
         @apply flex size-[3.0625rem] cursor-pointer items-center justify-center rounded-full bg-gradient-to-t from-[#F66565] to-[#E53C3C] text-white;
     }
+
+    .bg-icon {
+        @apply flex size-[1.875rem] items-center justify-center rounded-[8px];
+    }
 }
 
 @layer base {

@@ -12,6 +12,10 @@ import Image from "next/image";
 import { redirect, RedirectType, usePathname } from "next/navigation";
 import React, { useTransition } from "react";
 import { twMerge } from "tailwind-merge";
+import icSearch from "@/public/icons/ic-search.svg";
+import icClock from "@/public/icons/ic-clock.svg";
+import icNotification from "@/public/icons/ic-notification.svg";
+import icLogout from "@/public/icons/ic-logout.svg";
 
 const DashboardHeader = () => {
     const pathname = usePathname();
@@ -43,21 +47,21 @@ const DashboardHeader = () => {
                 {title === "" ? "Dashboard" : title}
             </span>
             <Image
-                src={require("@/public/icons/ic-search.svg")}
+                src={icSearch}
                 width={24}
                 height={24}
                 alt={"ic-search"}
                 className="cursor-pointer"
             />
             <Image
-                src={require("@/public/icons/ic-clock.svg")}
+                src={icClock}
                 width={24}
                 height={24}
                 alt={"ic-clock"}
                 className="cursor-pointer"
             />
             <Image
-                src={require("@/public/icons/ic-notification.svg")}
+                src={icNotification}
                 width={24}
                 height={24}
                 alt={"ic-bell"}
@@ -96,12 +100,12 @@ const DashboardHeader = () => {
                                 });
                             }}
                             className={twMerge(
-                                "flex w-full cursor-pointer flex-row items-center gap-4 px-[1.5rem] py-[1rem] text-[#EB5757] hover:bg-slate-50",
+                                "flex w-full cursor-pointer flex-row items-center gap-4 px-[1.5rem] py-[1rem] text-[#EB5757] hover:rounded-bl-lg hover:rounded-br-lg hover:bg-slate-50",
                                 pending && "cursor-not-allowed",
                             )}
                         >
                             <Image
-                                src={require("@/public/icons/ic-logout.svg")}
+                                src={icLogout}
                                 width={16}
                                 height={16}
                                 alt={"logout"}

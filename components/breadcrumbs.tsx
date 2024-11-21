@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useCallback, useState } from "react";
 import Row from "./row";
 import { twMerge } from "tailwind-merge";
-import Link from "next/link";
+import icHome from "@/public/icons/ic-home.svg";
 
 const Breadcrumbs = () => {
     const [paths, setPaths] = useState<string[]>([]);
@@ -38,7 +38,7 @@ const Breadcrumbs = () => {
                     }}
                     width={16}
                     height={16}
-                    src={require("@/public/icons/ic-home.svg")}
+                    src={icHome}
                     alt={"Home"}
                     className="cursor-pointer"
                 />

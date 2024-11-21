@@ -19,7 +19,7 @@ const CustomButton = ({
 }: CustomButtonProps) => {
     const filledStyle: React.CSSProperties = {
         backgroundColor: backgroundColor,
-        borderColor: "transparent",
+        borderColor: "#00000000",
         border: "1px solid",
         color: "#FFF",
     };
@@ -33,11 +33,11 @@ const CustomButton = ({
     return (
         <Row
             style={variant === "filled" ? filledStyle : outlinedStyle}
-            className="cursor-pointer gap-2 rounded-[8px] px-[1rem] py-[.625rem] hover:bg-slate-50"
+            className="h-[2.375rem] cursor-pointer items-center rounded-[8px] px-[1rem] hover:bg-slate-50 xl:gap-2"
             {...props}
         >
             {Icon}
-            <span className="line-clamp-1 flex-1 text-ellipsis text-[.875rem] font-medium">
+            <span className="line-clamp-1 flex-1 text-ellipsis text-[0px] font-medium xl:text-[.875rem]">
                 {title}
             </span>
         </Row>

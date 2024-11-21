@@ -3,6 +3,8 @@ import Row from "@/components/row";
 import { Plus } from "lucide-react";
 import Image from "next/image";
 import React from "react";
+import icFilter from "@/public/icons/ic-filter-3.svg";
+import icDelete from "@/public/icons/ic-delete.svg";
 
 const PengumumanAction = () => {
     const IcSearch = () => (
@@ -33,7 +35,7 @@ const PengumumanAction = () => {
     );
 
     return (
-        <Row className="mt-6 w-full items-end gap-4">
+        <div className="mt-6 flex w-full flex-col items-start gap-4 md:flex-row md:items-end">
             <Row className="flex-1 justify-start">
                 <Row className="gap-2 border-b-[1px] border-b-black pb-2">
                     <IcSearch />
@@ -43,39 +45,41 @@ const PengumumanAction = () => {
                     />
                 </Row>
             </Row>
-            <CustomButton
-                title={"Filter"}
-                variant="outlined"
-                borderColor="#465478"
-                Icon={
-                    <Image
-                        src={require("@/public/icons/ic-filter-3.svg")}
-                        alt="filter"
-                        width={16}
-                        height={16}
-                    />
-                }
-            />
-            <CustomButton
-                title="Hapus"
-                variant="outlined"
-                borderColor="#FF5D5D"
-                Icon={
-                    <Image
-                        src={require("@/public/icons/ic-delete.svg")}
-                        alt="dekete"
-                        width={16}
-                        height={16}
-                    />
-                }
-            />
-            <CustomButton
-                title={"Tambah Pengumuman Baru"}
-                variant="filled"
-                backgroundColor="#5CB85C"
-                Icon={<Plus width={16} height={16} />}
-            />
-        </Row>
+            <div className="flex flex-row items-center gap-4">
+                <CustomButton
+                    title={"Filter"}
+                    variant="outlined"
+                    borderColor="#465478"
+                    Icon={
+                        <Image
+                            src={icFilter}
+                            alt="filter"
+                            width={16}
+                            height={16}
+                        />
+                    }
+                />
+                <CustomButton
+                    title="Hapus"
+                    variant="outlined"
+                    borderColor="#FF5D5D"
+                    Icon={
+                        <Image
+                            src={icDelete}
+                            alt="dekete"
+                            width={16}
+                            height={16}
+                        />
+                    }
+                />
+                <CustomButton
+                    title={"Tambah Pengumuman Baru"}
+                    variant="filled"
+                    backgroundColor="#5CB85C"
+                    Icon={<Plus width={16} height={16} />}
+                />
+            </div>
+        </div>
     );
 };
 

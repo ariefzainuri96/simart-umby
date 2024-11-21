@@ -1,11 +1,8 @@
 import Breadcrumbs from "@/components/breadcrumbs";
 import Column from "@/components/column";
-import CustomButton from "@/components/custom-button";
-import Row from "@/components/row";
-import { Plus } from "lucide-react";
-import Image from "next/image";
 import React from "react";
 import PengumumanAction from "./(section)/action";
+import PengumumanDataTable from "./(section)/pengumuman-data-table";
 
 const Pengumumanpage = () => {
     return (
@@ -13,6 +10,7 @@ const Pengumumanpage = () => {
             <Column className="p-6">
                 <Breadcrumbs />
                 <PengumumanAction />
+                <PengumumanDataTable />
             </Column>
         </div>
     );

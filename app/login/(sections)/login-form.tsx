@@ -3,11 +3,10 @@
 import { authenticate } from "@/lib/auth";
 import Image from "next/image";
 import { useFormState, useFormStatus } from "react-dom";
-import TextField from "@mui/material/TextField";
 import { CustomCheck } from "@/components/custom-check";
 import IcWarning from "@/public/icons/ic-warning.svg";
 import UmbyLogo from "@/public/images/umby-logo.png";
-import { textFieldStyles } from "@/utils/style-helper";
+import CustomTextfield from "@/components/custom-textfield";
 
 const LoginForm = () => {
     const [error, dispatch] = useFormState(authenticate, undefined);
@@ -31,25 +30,21 @@ const LoginForm = () => {
                     Sistem Informasi Aset Rumah Tangga
                 </span>
                 <form className="mt-[3.5rem]" action={dispatch}>
-                    <TextField
+                    <CustomTextfield
                         className="w-full"
-                        variant="outlined"
-                        label="NIS"
                         name="nis"
-                        sx={textFieldStyles}
+                        id="nis"
                         required
+                        label="NIS"
                     />
-                    <div className="mt-4">
-                        <TextField
-                            className="w-full"
-                            variant="outlined"
-                            label="Password"
-                            name="password"
-                            type="password"
-                            required
-                            sx={textFieldStyles}
-                        />
-                    </div>
+                    <CustomTextfield
+                        className="mt-4 w-full"
+                        name="password"
+                        id="password"
+                        type="password"
+                        required
+                        label="Password"
+                    />
                     <LoginLocalButton />
                     <LoginSSOButton />
                     {/* <Button

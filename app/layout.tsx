@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { twMerge } from "tailwind-merge";
-import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 import DashboardHeader from "./(sections)/dashboard-header";
 import "./globals.css";
 import SidebarSection from "./(sections)/sidebar-section";
@@ -29,18 +28,16 @@ export default function RootLayout({
                     poppins.className + " h-screen w-screen overflow-hidden"
                 }
             >
-                <AppRouterCacheProvider>
-                    <div className={twMerge("h-full w-full")}>
-                        <div className="flex h-full w-full flex-row">
-                            {/* sidebar */}
-                            <SidebarSection />
-                            <div className="flex h-full flex-1 flex-col">
-                                <DashboardHeader />
-                                <div className="w-full flex-1">{children}</div>
-                            </div>
+                <div className={twMerge("h-full w-full")}>
+                    <div className="flex h-full w-full flex-row">
+                        {/* sidebar */}
+                        <SidebarSection />
+                        <div className="flex h-full flex-1 flex-col">
+                            <DashboardHeader />
+                            <div className="w-full flex-1">{children}</div>
                         </div>
                     </div>
-                </AppRouterCacheProvider>
+                </div>
             </body>
         </html>
     );

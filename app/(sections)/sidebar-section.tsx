@@ -14,7 +14,7 @@ export default function SidebarSection() {
     return (
         <div
             className={twMerge(
-                "h-full w-full max-w-[325px] bg-blue2",
+                "h-full min-w-[325px] max-w-[325px] bg-blue2",
                 pathname === "/login" && "hidden",
             )}
         >

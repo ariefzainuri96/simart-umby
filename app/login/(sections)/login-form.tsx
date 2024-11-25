@@ -2,42 +2,17 @@
 
 import { authenticate } from "@/lib/auth";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useFormState, useFormStatus } from "react-dom";
 import TextField from "@mui/material/TextField";
 import { CustomCheck } from "@/components/custom-check";
 import IcWarning from "@/public/icons/ic-warning.svg";
 import UmbyLogo from "@/public/images/umby-logo.png";
-import { Button } from "@/components/ui/button";
+import { textFieldStyles } from "@/utils/style-helper";
 
 const LoginForm = () => {
     const [error, dispatch] = useFormState(authenticate, undefined);
-    const router = useRouter();
 
     console.log(error);
-
-    const styles = () => ({
-        "& .MuiOutlinedInput-root": {
-            "& fieldset": {
-                borderColor: "#BFBFBF",
-            },
-            "&:hover fieldset": {
-                borderColor: "#18469C",
-            },
-            "&.Mui-focused fieldset": {
-                borderColor: "#18469C",
-                borderWidth: "1px",
-            },
-        },
-        "& label": {
-            "& ": {
-                color: "#BFBFBF",
-            },
-            "&.Mui-focused": {
-                color: "#18469C",
-            },
-        },
-    });
 
     return (
         <div className="h-full w-full max-w-[600px] overflow-y-auto lg:overflow-y-hidden">
@@ -61,7 +36,7 @@ const LoginForm = () => {
                         variant="outlined"
                         label="NIS"
                         name="nis"
-                        sx={styles}
+                        sx={textFieldStyles}
                         required
                     />
                     <div className="mt-4">
@@ -72,7 +47,7 @@ const LoginForm = () => {
                             name="password"
                             type="password"
                             required
-                            sx={styles}
+                            sx={textFieldStyles}
                         />
                     </div>
                     <LoginLocalButton />

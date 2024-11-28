@@ -6,7 +6,7 @@ import Row from "@/components/row";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import CustomRadio from "@/components/custom-radio";
-import { useProfileInstitusiContext } from "../profile-institusi-context";
+import { useProfileInstitusiContext } from "../profile-institusi-provider";
 
 export default function MailConfiguration({
     className,

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useProfileInstitusiContext } from "../profile-institusi-context";
+import { useProfileInstitusiContext } from "../profile-institusi-provider";
 import Column from "@/components/column";
 import CustomTextfield from "@/components/custom-textfield";
 

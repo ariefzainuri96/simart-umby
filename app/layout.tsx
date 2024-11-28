@@ -5,6 +5,7 @@ import DashboardHeader from "./(sections)/dashboard-header";
 import "./globals.css";
 import SidebarSection from "./(sections)/sidebar-section";
 import React from "react";
+import { SheetSidebarProvider } from "./(components)/sheet-sidebar/sheet-sidebar-provider";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -31,11 +32,13 @@ export default function RootLayout({
                 <div className={twMerge("h-full w-full")}>
                     <div className="flex h-full w-full flex-row">
                         {/* sidebar */}
-                        <SidebarSection />
-                        <div className="flex h-full flex-1 flex-col">
-                            <DashboardHeader />
-                            <div className="w-full flex-1">{children}</div>
-                        </div>
+                        <SheetSidebarProvider>
+                            <SidebarSection className="hidden lg:block" />
+                            <div className="flex h-full flex-1 flex-col">
+                                <DashboardHeader />
+                                <div className="w-full flex-1">{children}</div>
+                            </div>
+                        </SheetSidebarProvider>
                     </div>
                 </div>
             </body>

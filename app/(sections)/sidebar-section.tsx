@@ -8,7 +8,11 @@ import Image from "next/image";
 import ImgLogo from "@/public/images/img-logo.png";
 import { usePathname } from "next/navigation";
 
-export default function SidebarSection() {
+type SidebarSectionProps = {
+    className?: string;
+};
+
+export default function SidebarSection({ className }: SidebarSectionProps) {
     const pathname = usePathname();
 
     return (
@@ -16,6 +20,7 @@ export default function SidebarSection() {
             className={twMerge(
                 "h-full min-w-[325px] max-w-[325px] bg-blue2",
                 pathname === "/login" && "hidden",
+                className,
             )}
         >
             <div className="flex flex-col">

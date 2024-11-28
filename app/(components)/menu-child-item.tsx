@@ -8,9 +8,10 @@ import {
 } from "@/components/ui/accordion";
 import { MenuChildModel } from "@/model/dashboard/menu-model";
 import { ChevronDown } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
+import { useSheetSidebarContext } from "./sheet-sidebar/sheet-sidebar-provider";
+import { useState } from "react";
 
 export const MenuChildItem = ({
     data,
@@ -20,7 +21,8 @@ export const MenuChildItem = ({
     isLayer?: boolean;
 }) => {
     const pathname = usePathname();
-
+    const router = useRouter();
+    const { setSheetOpen } = useSheetSidebarContext();
     const isSelected = () => `${pathname}` === (data.path ?? "");
 
     const Indicator = () => {
@@ -41,15 +43,26 @@ export const MenuChildItem = ({
 
     const Content = () => {
         return (
-            <div className="flex w-full flex-row items-center gap-[1rem] p-4 hover:bg-[#082F76]">
+            <div
+                onClick={(e) => {
+                    if (data.child) return;
+
+                    e.preventDefault();
+
+                    setSheetOpen(false);
+
+                    router.push(data.path!!);
+                }}
+                className={twMerge(
+                    "flex w-full flex-row items-center gap-[1rem] p-4",
+                    !data.child && "cursor-pointer hover:bg-[#082F76]",
+                )}
+            >
                 {/* indicator */}
                 <Indicator />
                 <span className="flex-1 text-start text-[0.875rem] font-semibold text-white">
                     {data.title}
                 </span>
-                {data.child && (
-                    <ChevronDown className="h-4 w-4 shrink-0 text-white transition-transform duration-200" />
-                )}
             </div>
         );
     };
@@ -57,7 +70,10 @@ export const MenuChildItem = ({
     if (data.child) {
         return (
             <AccordionItem value={data.title}>
-                <AccordionTrigger className="p-0" hideIcon={true}>
+                <AccordionTrigger
+                    chevronStyle="text-white"
+                    className="p-0 pr-2 hover:bg-[#082F76]"
+                >
                     <Content />
                 </AccordionTrigger>
                 <AccordionContent>
@@ -77,9 +93,5 @@ export const MenuChildItem = ({
         );
     }
 
-    return (
-        <Link href={data.path!!}>
-            <Content />
-        </Link>
-    );
+    return <Content />;
 };

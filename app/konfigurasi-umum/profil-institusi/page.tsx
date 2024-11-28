@@ -2,8 +2,8 @@ import Breadcrumbs from "@/components/breadcrumbs";
 import Column from "@/components/column";
 import React from "react";
 import MailConfiguration from "./(section)/mail-configuration";
-import { ProfileInstitusiProvider } from "./profile-institusi-context";
 import Revisi from "./(section)/revisi";
+import { ProfileInstitusiProvider } from "./profile-institusi-provider";
 
 const ProfileInstitusiPage = () => {
     return (

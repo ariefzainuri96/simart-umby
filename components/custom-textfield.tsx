@@ -37,9 +37,9 @@ export default function CustomTextfield({
                 className={`absolute left-6 cursor-text font-medium transition-all duration-150 ${
                     isFocused
                         ? "top-[-10px] bg-white px-1 text-sm text-[#18469C]"
-                        : isFocused && !isEmpty
+                        : isFocused && (!isEmpty || props.value)
                           ? "top-[-10px] bg-white px-1 text-sm text-[#18469C]"
-                          : !isFocused && !isEmpty
+                          : !isFocused && (!isEmpty || props.value)
                             ? "top-[-10px] bg-white px-1 text-sm text-[#BFBFBF]"
                             : "top-3.5 text-[1rem] text-[#BFBFBF]"
                 }`}

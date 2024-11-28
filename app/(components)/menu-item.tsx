@@ -15,12 +15,14 @@ import IcKonfigurasiBisnis from "@/public/icons/ic-konfigurasi-bisnis.svg";
 import IcMasterData from "@/public/icons/ic-master-data.svg";
 import IcManajemenInventaris from "@/public/icons/ic-manajemen-inventaris.svg";
 import { ChevronDown } from "lucide-react";
-import Link from "next/link";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { useSheetSidebarContext } from "./sheet-sidebar/sheet-sidebar-provider";
+import { useRouter } from "next/navigation";
 
 export const MenuItem = ({ data }: { data: MenuModel }) => {
-    const [clicked, setClicked] = useState(false);
+    const router = useRouter();
+    const { setSheetOpen } = useSheetSidebarContext();
 
     function selectedIcon(): any {
         switch (data.icon) {
@@ -41,7 +43,21 @@ export const MenuItem = ({ data }: { data: MenuModel }) => {
 
     const Content = () => {
         return (
-            <div className="flex w-full flex-row items-center gap-[1rem] p-4 hover:bg-[#082F76]">
+            <div
+                onClick={(e) => {
+                    if (data.child) return;
+
+                    e.preventDefault();
+
+                    setSheetOpen(false);
+
+                    router.push(data.path!!);
+                }}
+                className={twMerge(
+                    "flex w-full flex-row items-center gap-[1rem] p-4",
+                    !data.child && "cursor-pointer hover:bg-[#082F76]",
+                )}
+            >
                 <Image
                     src={selectedIcon()}
                     alt={`${data.title}`}
@@ -51,14 +67,6 @@ export const MenuItem = ({ data }: { data: MenuModel }) => {
                 <span className="line-clamp-1 flex-1 overflow-ellipsis text-start font-semibold text-white">
                     {data.title}
                 </span>
-                {data.child && (
-                    <ChevronDown
-                        className={twMerge(
-                            "h-4 w-4 shrink-0 transform text-white transition-transform duration-200 ease-in-out",
-                            clicked && "rotate-180",
-                        )}
-                    />
-                )}
             </div>
         );
     };
@@ -67,9 +75,8 @@ export const MenuItem = ({ data }: { data: MenuModel }) => {
         return (
             <AccordionItem value={data.title}>
                 <AccordionTrigger
-                    onClick={() => setClicked(!clicked)}
-                    className="p-0"
-                    hideIcon={true}
+                    chevronStyle="text-white"
+                    className="p-0 pr-2 hover:bg-[#082F76]"
                 >
                     <Content />
                 </AccordionTrigger>
@@ -84,10 +91,5 @@ export const MenuItem = ({ data }: { data: MenuModel }) => {
         );
     }
 
-    // return <Content />;
-    return (
-        <Link href={data.path!!}>
-            <Content />
-        </Link>
-    );
+    return <Content />;
 };

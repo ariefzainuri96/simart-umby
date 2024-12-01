@@ -4,12 +4,15 @@ import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import { setCookie } from "cookies-next";
 // import { UserTable } from "../db/schema";
 
 // type TUser = typeof UserTable.$inferSelect;
 
 const secretKey = process.env.SECRET_KEY;
 const key = new TextEncoder().encode(secretKey);
+
+const infiniteDate = new Date(Date.now() + 60 * 60000 * 24 * 365 * 100);
 
 export async function authenticate(_: any, formData: FormData) {
     try {
@@ -20,7 +23,23 @@ export async function authenticate(_: any, formData: FormData) {
 
         console.log(nis, password, rememberMe);
 
-        await setCookies(nis, "123");
+        await setAuthCookies(nis, "123");
+        await setCookies(
+            "authData",
+            {
+                nis: nis,
+                password: password,
+                rememberMe: formData.get("rememberMe")?.toString() ?? "",
+            },
+            false,
+            infiniteDate,
+        );
+
+        // setCookie("nis", nis, { cookies });
+        // setCookie("password", password, { cookies });
+        // setCookie("rememberMe", formData.get("rememberMe")?.toString() ?? "", {
+        //     cookies,
+        // });
 
         // const user = await db
         //     .select()
@@ -42,7 +61,7 @@ export async function authenticate(_: any, formData: FormData) {
         console.log(error);
 
         if (isRedirectError(error)) throw error;
-        return { status: 401, message: `${error}` };
+        return { status: 401, message: `${error}`, data: formData };
     } finally {
         redirect("/");
     }
@@ -63,15 +82,28 @@ export async function decrypt(input: string): Promise<any> {
     return payload;
 }
 
-async function setCookies(email: string, userId: string) {
+async function setAuthCookies(email: string, userId: string) {
     const user = {
         email: email,
         userId: userId,
     };
     // 60000 millisecond => 1 minute
-    const expires = new Date(Date.now() + 120 * 60000);
+    const expires = new Date(Date.now() + 60 * 60000);
     const session = await encrypt(user, expires);
     cookies().set("currentUser", session, { expires, httpOnly: true }); // httpOnly true -> we can only get cookies in server side
+}
+
+async function setCookies(
+    key: string,
+    data: any,
+    httpOnly?: boolean,
+    expires?: Date,
+) {
+    const encryptedData = await encrypt(
+        data,
+        expires ?? new Date(Date.now() + 60 * 60000),
+    );
+    cookies().set(key, encryptedData, { expires, httpOnly: httpOnly ?? true }); // httpOnly true -> we can only get cookies in server side
 }
 
 export async function logout() {

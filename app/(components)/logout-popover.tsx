@@ -21,9 +21,9 @@ export default function LogoutPopover() {
             logout();
         } catch (error) {
             console.log(error);
+        } finally {
+            redirect("/login", RedirectType.replace);
         }
-
-        redirect("/login", RedirectType.replace);
     };
 
     return (

@@ -1,17 +1,36 @@
 "use client";
 
-import { authenticate } from "@/lib/auth";
+import { authenticate, decrypt } from "@/lib/auth";
 import Image from "next/image";
 import { useFormState, useFormStatus } from "react-dom";
 import { CustomCheck } from "@/components/custom-check";
 import IcWarning from "@/public/icons/ic-warning.svg";
 import UmbyLogo from "@/public/images/umby-logo.png";
 import CustomTextfield from "@/components/custom-textfield";
+import { useEffect, useState } from "react";
+import { getCookies } from "cookies-next";
 
 const LoginForm = () => {
-    const [error, dispatch] = useFormState(authenticate, undefined);
+    const [response, dispatch] = useFormState(authenticate, undefined);
+    const [nis, setNis] = useState("");
+    const [password, setPassword] = useState("");
+    const [rememberMe, setRememberMe] = useState(false);
 
-    console.log(error);
+    useEffect(() => {
+        async function getAuthData() {
+            const data = await decrypt(
+                getCookies()["authData"]?.toString() ?? "",
+            );
+
+            if ((data.rememberMe ?? "") === "on") {
+                setRememberMe((data.rememberMe ?? "") === "on");
+                setNis(data.nis);
+                setPassword(data.password);
+            }
+        }
+
+        getAuthData();
+    }, []);
 
     return (
         <div className="h-full w-full max-w-[600px] overflow-y-auto lg:overflow-y-hidden">
@@ -34,34 +53,32 @@ const LoginForm = () => {
                         className="w-full"
                         name="nis"
                         id="nis"
+                        value={nis}
+                        onChange={(e) => setNis(e.target.value)}
                         required
                         label="NIS"
+                        autoComplete="off"
                     />
                     <CustomTextfield
                         className="mt-4 w-full"
                         name="password"
                         id="password"
                         type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
                         required
                         label="Password"
+                        autoComplete="off"
                     />
                     <LoginLocalButton />
                     <LoginSSOButton />
-                    {/* <Button
-                        onClick={(e) => {
-                            e.preventDefault();
-
-                            router.push("/register");
-                        }}
-                        className="mt-2 w-full"
-                    >
-                        Register
-                    </Button> */}
                     <div className="mt-4 flex flex-row  items-center">
                         <CustomCheck
                             id="ingatkan-saya"
                             label="Ingatkan Saya"
                             className="flex-1"
+                            checked={rememberMe}
+                            onChange={(e) => setRememberMe(e.target.checked)}
                             name="rememberMe"
                         />
                         <span className="cursor-pointer py-1 text-[0.875rem] font-medium text-blue1">

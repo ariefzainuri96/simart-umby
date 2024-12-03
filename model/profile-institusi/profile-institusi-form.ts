@@ -7,7 +7,7 @@ export type ProfileInstitusiForm = {
     port?: string;
     driver?: string;
     encryption?: string;
-    limitasiBatasRevisi?: number;
+    limitasiBatasRevisi: string;
     siteConfiguration?: SiteConfiguration;
 };
 

@@ -4,9 +4,11 @@ import React from "react";
 import { useProfileInstitusiContext } from "../profile-institusi-provider";
 import Column from "@/components/column";
 import CustomTextfield from "@/components/custom-textfield";
+import { Minus, Plus } from "lucide-react";
 
 export default function Revisi() {
-    const { form, handleChange } = useProfileInstitusiContext();
+    const { form, updateForm, handleChange, handleSiteConfigurationChange } =
+        useProfileInstitusiContext();
 
     return (
         <Column className="w-full">
@@ -18,6 +20,47 @@ export default function Revisi() {
                 name="limitasiBatasRevisi"
                 onChange={handleChange}
                 label="Limitasi Batas Revisi"
+                trailing={
+                    <div className="flex cursor-pointer flex-row items-center rounded-br-md rounded-tr-md border border-l-0 border-[#BFBFBF]">
+                        <div
+                            onClick={(e) => {
+                                e.preventDefault();
+
+                                if (form.limitasiBatasRevisi === "") return;
+
+                                if (
+                                    (Number(form.limitasiBatasRevisi ?? "0") ??
+                                        0) === 1
+                                ) {
+                                    updateForm("limitasiBatasRevisi", "");
+                                    return;
+                                }
+
+                                updateForm(
+                                    "limitasiBatasRevisi",
+                                    `${(Number(form.limitasiBatasRevisi ?? "0") ?? 0) - 1}`,
+                                );
+                            }}
+                            className="flex size-[54px] items-center justify-center bg-[#F2F2F2]"
+                        >
+                            <Minus width={24} height={24} color="#465478" />
+                        </div>
+                        <div className="h-[54px] w-[1px] bg-[#BFBFBF]" />
+                        <div
+                            onClick={(e) => {
+                                e.preventDefault();
+
+                                updateForm(
+                                    "limitasiBatasRevisi",
+                                    `${(Number(form.limitasiBatasRevisi ?? "0") ?? 0) + 1}`,
+                                );
+                            }}
+                            className="flex size-[54px] cursor-pointer items-center justify-center bg-[#4CD96433]"
+                        >
+                            <Plus width={24} height={24} color="#4CD964" />
+                        </div>
+                    </div>
+                }
             />
         </Column>
     );

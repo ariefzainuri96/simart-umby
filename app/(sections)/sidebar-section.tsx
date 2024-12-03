@@ -9,18 +9,21 @@ import ImgLogo from "@/public/images/img-logo.png";
 import { usePathname } from "next/navigation";
 
 type SidebarSectionProps = {
-    className?: string;
+    isForDrawer?: boolean;
 };
 
-export default function SidebarSection({ className }: SidebarSectionProps) {
+export default function SidebarSection({ isForDrawer }: SidebarSectionProps) {
     const pathname = usePathname();
 
     return (
         <div
             className={twMerge(
                 "h-full min-w-[325px] max-w-[325px] bg-blue2",
-                pathname === "/login" && "hidden",
-                className,
+                pathname === "/login"
+                    ? "hidden"
+                    : isForDrawer
+                      ? ""
+                      : "hidden lg:block",
             )}
         >
             <div className="flex flex-col">

@@ -1,16 +1,18 @@
 "use client";
 
-import React, { ComponentPropsWithoutRef, useState } from "react";
+import React, { ComponentPropsWithoutRef, ReactNode, useState } from "react";
 import { twMerge } from "tailwind-merge";
 
 type TextFieldProps = {
     label: string;
     className?: string;
+    trailing?: ReactNode;
 } & ComponentPropsWithoutRef<"input">;
 
 export default function CustomTextfield({
     label,
     className,
+    trailing,
     ...props
 }: TextFieldProps) {
     const [isFocused, setIsFocused] = useState(false);
@@ -26,11 +28,7 @@ export default function CustomTextfield({
     };
 
     return (
-        <div
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            className={twMerge("relative w-full", className)}
-        >
+        <div className={twMerge("relative w-full", className)}>
             {/* Label */}
             <label
                 htmlFor={props.id}
@@ -48,18 +46,26 @@ export default function CustomTextfield({
             </label>
 
             {/* Input */}
-            <input
-                onFocus={() => setIsFocused(true)}
-                onBlur={() => setIsFocused(false)}
-                onChange={handleInputChange}
-                className={`poppins500-16 h-[56px] w-full rounded-md border px-6 py-2 transition-colors ${
-                    isFocused || isHovered
-                        ? "border-[#18469C]"
-                        : "border-[#BFBFBF]"
-                }
-           duration-300 focus:outline-none`}
-                {...props}
-            />
+            <div className="flex flex-row items-center">
+                <input
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                    onChange={handleInputChange}
+                    className={twMerge(
+                        `poppins500-16 h-[56px] w-full rounded-md border px-6 py-2 transition-colors ${
+                            isFocused || isHovered
+                                ? "border-[#18469C]"
+                                : "border-[#BFBFBF]"
+                        }
+           duration-300 focus:outline-none`,
+                        trailing && "flex-1 rounded-br-none rounded-tr-none",
+                    )}
+                    {...props}
+                />
+                {trailing}
+            </div>
         </div>
     );
 }

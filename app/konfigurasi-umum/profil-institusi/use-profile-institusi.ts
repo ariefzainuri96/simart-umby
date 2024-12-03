@@ -2,7 +2,9 @@ import { ProfileInstitusiForm } from "@/model/profile-institusi/profile-institus
 import { useState } from "react";
 
 export default function useProfileInstitusi() {
-    const [form, setForm] = useState<ProfileInstitusiForm>({});
+    const [form, setForm] = useState<ProfileInstitusiForm>({
+        limitasiBatasRevisi: "",
+    });
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         const { name, value } = e.target;
@@ -12,5 +14,37 @@ export default function useProfileInstitusi() {
         });
     }
 
-    return { form, handleChange } as const;
+    function handleSiteConfigurationChange(
+        e: React.ChangeEvent<HTMLInputElement>,
+    ) {
+        const { name, value } = e.target;
+
+        setForm((form) => {
+            return {
+                ...form,
+                siteConfiguration: {
+                    ...form.siteConfiguration,
+                    [name]: value,
+                },
+            };
+        });
+    }
+
+    function updateForm(cName: string, cValue: any) {
+        setForm((form) => {
+            return { ...form, [cName]: cValue };
+        });
+    }
+
+    function save() {
+        console.log("Form ->\n", form);
+    }
+
+    return {
+        form,
+        handleChange,
+        handleSiteConfigurationChange,
+        updateForm,
+        save,
+    } as const;
 }

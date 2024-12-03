@@ -63,7 +63,7 @@ export default function MailConfiguration({
                 onChange={handleChange}
             />
 
-            <Row className="mt-6 gap-6">
+            <Row className="mt-6 w-full gap-6">
                 <CustomTextfield
                     label={"Port"}
                     name="port"

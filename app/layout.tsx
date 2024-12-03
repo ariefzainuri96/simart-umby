@@ -29,18 +29,18 @@ export default function RootLayout({
                     poppins.className + " h-screen w-screen overflow-hidden"
                 }
             >
-                <div className={twMerge("h-full w-full")}>
-                    <div className="flex h-full w-full flex-row">
-                        {/* sidebar */}
-                        <SheetSidebarProvider>
-                            <SidebarSection className="hidden lg:block" />
-                            <div className="flex h-full flex-1 flex-col">
-                                <DashboardHeader />
-                                <div className="w-full flex-1">{children}</div>
-                            </div>
-                        </SheetSidebarProvider>
+                <SheetSidebarProvider>
+                    <div className="flex h-full w-full flex-row overflow-hidden">
+                        <SidebarSection />
+                        <div className="flex h-full flex-1 flex-col">
+                            <DashboardHeader />
+                            {/* <div className="w-full flex-1 overflow-y-auto">
+                                {children}
+                            </div>                             */}
+                            {children}
+                        </div>
                     </div>
-                </div>
+                </SheetSidebarProvider>
             </body>
         </html>
     );

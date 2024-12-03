@@ -7,11 +7,9 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion";
 import { MenuChildModel } from "@/model/dashboard/menu-model";
-import { ChevronDown } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { twMerge } from "tailwind-merge";
 import { useSheetSidebarContext } from "./sheet-sidebar/sheet-sidebar-provider";
-import { useState } from "react";
 
 export const MenuChildItem = ({
     data,

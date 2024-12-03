@@ -32,7 +32,7 @@ export default function SheetSidebar() {
                     <SheetHeader>
                         <SheetTitle></SheetTitle>
                     </SheetHeader>
-                    <SidebarSection />
+                    <SidebarSection isForDrawer={true} />
                 </SheetContent>
             </Sheet>
         </div>

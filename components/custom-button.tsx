@@ -1,5 +1,6 @@
 import React, { ComponentPropsWithoutRef, ComponentPropsWithRef } from "react";
 import Row from "./row";
+import { twMerge } from "tailwind-merge";
 
 type CustomButtonProps = {
     title: string;
@@ -7,6 +8,9 @@ type CustomButtonProps = {
     Icon?: React.ReactNode;
     backgroundColor?: string;
     borderColor?: string;
+    hideOnBreakpoint?: boolean;
+    buttonHeight?: number;
+    paddingHorizontal?: number;
 } & ComponentPropsWithoutRef<"div">;
 
 const CustomButton = ({
@@ -15,6 +19,9 @@ const CustomButton = ({
     borderColor,
     Icon,
     variant,
+    hideOnBreakpoint = false,
+    buttonHeight = 38,
+    paddingHorizontal = 16,
     ...props
 }: CustomButtonProps) => {
     const filledStyle: React.CSSProperties = {
@@ -22,22 +29,31 @@ const CustomButton = ({
         borderColor: "#00000000",
         border: "1px solid",
         color: "#FFF",
+        height: buttonHeight,
+        paddingInline: paddingHorizontal,
     };
 
     const outlinedStyle: React.CSSProperties = {
         borderColor: borderColor,
         color: borderColor,
         border: "1px solid",
+        height: buttonHeight,
+        paddingInline: paddingHorizontal,
     };
 
     return (
         <Row
             style={variant === "filled" ? filledStyle : outlinedStyle}
-            className="h-[2.375rem] cursor-pointer items-center rounded-[8px] px-[1rem] hover:bg-slate-50 xl:gap-2"
+            className="cursor-pointer items-center rounded-[8px] px-[1rem] hover:bg-slate-50 xl:gap-2"
             {...props}
         >
             {Icon}
-            <span className="line-clamp-1 flex-1 text-ellipsis text-[0px] font-medium xl:text-[.875rem]">
+            <span
+                className={twMerge(
+                    "line-clamp-1 flex-1 text-ellipsis text-[.875rem] font-medium",
+                    hideOnBreakpoint && "text-[0px] xl:text-[.875rem]",
+                )}
+            >
                 {title}
             </span>
         </Row>

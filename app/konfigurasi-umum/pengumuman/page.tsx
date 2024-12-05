@@ -3,6 +3,11 @@ import Column from "@/components/column";
 import React from "react";
 import PengumumanAction from "./(section)/action";
 import PengumumanDataTable from "./(section)/pengumuman-data-table";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Pengumuman",
+};
 
 const Pengumumanpage = () => {
     return (

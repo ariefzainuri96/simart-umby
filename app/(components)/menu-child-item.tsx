@@ -74,7 +74,7 @@ export const MenuChildItem = ({
                 >
                     <Content />
                 </AccordionTrigger>
-                <AccordionContent>
+                <AccordionContent className="p-0">
                     <Accordion type="single" collapsible>
                         {(data.child ?? []).map((item, index) => {
                             return (

@@ -2,11 +2,14 @@
 
 import { Accordion } from "@/components/ui/accordion";
 import { menuList } from "@/model/dashboard/menu-model";
-import { MenuItem } from "../(components)/menu-item";
+import { MenuItem } from "../../(components)/menu-item";
 import { twMerge } from "tailwind-merge";
 import Image from "next/image";
 import ImgLogo from "@/public/images/img-logo.png";
 import { usePathname } from "next/navigation";
+import { useSidebarContext } from "./sidebar-provider";
+import { useEffect } from "react";
+import { useSheetSidebarContext } from "@/app/(components)/sheet-sidebar/sheet-sidebar-provider";
 
 type SidebarSectionProps = {
     isForDrawer?: boolean;
@@ -14,6 +17,23 @@ type SidebarSectionProps = {
 
 export default function SidebarSection({ isForDrawer }: SidebarSectionProps) {
     const pathname = usePathname();
+    const { accordionValue, setAccordionValue } = useSidebarContext();
+    const { setSheetOpen } = useSheetSidebarContext();
+
+    useEffect(() => {
+        function checkWindowSize() {
+            // lg: tailwind breakpoint
+            if (window.innerWidth > 1024) {
+                setSheetOpen(false);
+            }
+        }
+
+        window.addEventListener("resize", checkWindowSize);
+
+        return () => {
+            window.removeEventListener("resize", checkWindowSize);
+        };
+    }, []);
 
     return (
         <div
@@ -40,7 +60,13 @@ export default function SidebarSection({ isForDrawer }: SidebarSectionProps) {
                 </div>
                 <div className="flex-1 overflow-y-auto">
                     <div className="flex flex-col items-start pl-[1.5rem]">
-                        <Accordion type="single" className="w-full" collapsible>
+                        <Accordion
+                            value={accordionValue}
+                            onValueChange={setAccordionValue}
+                            type="single"
+                            className="w-full"
+                            collapsible
+                        >
                             {menuList.map((item, index) => {
                                 return <MenuItem key={index} data={item} />;
                             })}

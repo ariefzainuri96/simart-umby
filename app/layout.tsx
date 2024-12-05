@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import { twMerge } from "tailwind-merge";
 import DashboardHeader from "./(sections)/dashboard-header";
-import "./globals.css";
-import SidebarSection from "./(sections)/sidebar-section";
-import React from "react";
+import SidebarSection from "./(sections)/sidebar-section/sidebar-section";
 import { SheetSidebarProvider } from "./(components)/sheet-sidebar/sheet-sidebar-provider";
+import { SidebarProvider } from "./(sections)/sidebar-section/sidebar-provider";
+import "./globals.css";
+import { ReactNode } from "react";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({
     children,
 }: Readonly<{
-    children: React.ReactNode;
+    children: ReactNode;
 }>) {
     return (
         <html lang="en">
@@ -30,16 +30,15 @@ export default function RootLayout({
                 }
             >
                 <SheetSidebarProvider>
-                    <div className="flex h-full w-full flex-row overflow-hidden">
-                        <SidebarSection />
-                        <div className="flex h-full flex-1 flex-col">
-                            <DashboardHeader />
-                            {/* <div className="w-full flex-1 overflow-y-auto">
+                    <SidebarProvider>
+                        <div className="flex h-full w-full flex-row overflow-hidden">
+                            <SidebarSection />
+                            <div className="flex h-full flex-1 flex-col">
+                                <DashboardHeader />
                                 {children}
-                            </div>                             */}
-                            {children}
+                            </div>
                         </div>
-                    </div>
+                    </SidebarProvider>
                 </SheetSidebarProvider>
             </body>
         </html>

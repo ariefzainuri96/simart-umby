@@ -5,6 +5,11 @@ import MailConfiguration from "./(section)/mail-configuration";
 import Revisi from "./(section)/revisi";
 import { ProfileInstitusiProvider } from "./profile-institusi-provider";
 import SiteConfiguration from "./(section)/site-configuration";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Profil Institusi",
+};
 
 const ProfileInstitusiPage = () => {
     return (

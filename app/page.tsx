@@ -1,8 +1,13 @@
+import { Metadata } from "next";
 import Link from "next/link";
 
 // type SearchParamProps = {
 //     searchParams: Record<string, string> | null | undefined;
 // };
+
+export const metadata: Metadata = {
+    title: "SIMART UMBY",
+};
 
 export default async function Home() {
     return (

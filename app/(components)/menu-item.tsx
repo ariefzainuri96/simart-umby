@@ -14,15 +14,16 @@ import IcSettings from "@/public/icons/ic-settings.svg";
 import IcKonfigurasiBisnis from "@/public/icons/ic-konfigurasi-bisnis.svg";
 import IcMasterData from "@/public/icons/ic-master-data.svg";
 import IcManajemenInventaris from "@/public/icons/ic-manajemen-inventaris.svg";
-import { ChevronDown } from "lucide-react";
-import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { useSheetSidebarContext } from "./sheet-sidebar/sheet-sidebar-provider";
 import { useRouter } from "next/navigation";
+import { useSidebarContext } from "../(sections)/sidebar-section/sidebar-provider";
 
 export const MenuItem = ({ data }: { data: MenuModel }) => {
     const router = useRouter();
     const { setSheetOpen } = useSheetSidebarContext();
+    const { accordionValueLayer1, setAccordionValueLayer1 } =
+        useSidebarContext();
 
     function selectedIcon(): any {
         switch (data.icon) {
@@ -80,8 +81,14 @@ export const MenuItem = ({ data }: { data: MenuModel }) => {
                 >
                     <Content />
                 </AccordionTrigger>
-                <AccordionContent>
-                    <Accordion className="w-full" type="single" collapsible>
+                <AccordionContent className="p-0">
+                    <Accordion
+                        value={accordionValueLayer1}
+                        onValueChange={setAccordionValueLayer1}
+                        className="w-full"
+                        type="single"
+                        collapsible
+                    >
                         {(data.child ?? []).map((item, index) => {
                             return <MenuChildItem key={index} data={item} />;
                         })}

@@ -17,6 +17,6 @@ type SiteConfiguration = {
     phone?: string;
     address?: string;
     imgLogo?: string;
-    imgHalamanMultirole?: string;
-    imgCapDokumen?: string;
+    imgMultirole?: string;
+    imgDokumen?: string;
 };

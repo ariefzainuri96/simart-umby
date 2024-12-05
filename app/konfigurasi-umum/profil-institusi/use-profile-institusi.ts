@@ -30,6 +30,18 @@ export default function useProfileInstitusi() {
         });
     }
 
+    function updateSiteConfiguration(cName: string, cValue: any) {
+        setForm((form) => {
+            return {
+                ...form,
+                siteConfiguration: {
+                    ...form.siteConfiguration,
+                    [cName]: cValue,
+                },
+            };
+        });
+    }
+
     function updateForm(cName: string, cValue: any) {
         setForm((form) => {
             return { ...form, [cName]: cValue };
@@ -44,6 +56,7 @@ export default function useProfileInstitusi() {
         form,
         handleChange,
         handleSiteConfigurationChange,
+        updateSiteConfiguration,
         updateForm,
         save,
     } as const;

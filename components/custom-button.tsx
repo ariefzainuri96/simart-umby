@@ -8,6 +8,7 @@ type CustomButtonProps = {
     Icon?: React.ReactNode;
     backgroundColor?: string;
     borderColor?: string;
+    textColor?: string;
     hideOnBreakpoint?: boolean;
     buttonHeight?: number;
     paddingHorizontal?: number;
@@ -17,6 +18,7 @@ const CustomButton = ({
     title,
     backgroundColor,
     borderColor,
+    textColor,
     Icon,
     variant,
     hideOnBreakpoint = false,
@@ -26,9 +28,9 @@ const CustomButton = ({
 }: CustomButtonProps) => {
     const filledStyle: React.CSSProperties = {
         backgroundColor: backgroundColor,
-        borderColor: "#00000000",
+        borderColor: borderColor ?? "#00000000",
         border: "1px solid",
-        color: "#FFF",
+        color: textColor ?? "#FFF",
         height: buttonHeight,
         paddingInline: paddingHorizontal,
     };

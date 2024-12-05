@@ -9,13 +9,18 @@ import UmbyLogo from "@/public/images/umby-logo.png";
 import CustomTextfield from "@/components/custom-textfield";
 import { useEffect, useState } from "react";
 import { getCookies } from "cookies-next";
+import { useCustomDialogLoadingContext } from "@/components/custom-dialog/custom-dialog-loading-provider";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+    const { setOpen } = useCustomDialogLoadingContext();
+    const router = useRouter();
     const [response, dispatch] = useFormState(authenticate, undefined);
     const [nis, setNis] = useState("");
     const [password, setPassword] = useState("");
     const [rememberMe, setRememberMe] = useState(false);
 
+    // auto fill input
     useEffect(() => {
         async function getAuthData() {
             const data = await decrypt(
@@ -31,6 +36,14 @@ const LoginForm = () => {
 
         getAuthData();
     }, []);
+
+    useEffect(() => {
+        if (response) setOpen(false);
+
+        if (response?.status === 200) {
+            router.replace("/login");
+        }
+    }, [response]);
 
     return (
         <div className="h-full w-full max-w-[600px] overflow-y-auto lg:overflow-y-hidden">
@@ -106,7 +119,17 @@ const LoginForm = () => {
 };
 
 const LoginLocalButton = () => {
+    const { setOpen } = useCustomDialogLoadingContext();
     const { pending } = useFormStatus();
+
+    useEffect(() => {
+        // i think its a bug of react/nextjs, if i put setOpen(pending) the pending state will always return false
+        // so the work around is to use setOpen(true) to show the loading dialog manually
+        // and close dialog loading in [LoginForm] when the formstate is returning response
+        if (pending) {
+            setOpen(true);
+        }
+    }, [pending]);
 
     return (
         <button
@@ -127,7 +150,7 @@ const LoginSSOButton = () => {
 
     return (
         <button
-            type="submit"
+            type="button"
             className={
                 "mt-[1rem] w-full rounded-[0.5rem] border-[1px] border-bluePrimary py-[0.75rem] text-[1rem] font-medium text-bluePrimary"
             }

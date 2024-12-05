@@ -1,10 +1,9 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
 import { isRedirectError } from "next/dist/client/components/redirect";
-import { setCookie } from "cookies-next";
+import { delay } from "./utils";
 // import { UserTable } from "../db/schema";
 
 // type TUser = typeof UserTable.$inferSelect;
@@ -23,6 +22,7 @@ export async function authenticate(_: any, formData: FormData) {
 
         console.log(nis, password, rememberMe);
 
+        await delay(1500);
         await setAuthCookies(nis, "123");
         await setCookies(
             "authData",
@@ -34,12 +34,6 @@ export async function authenticate(_: any, formData: FormData) {
             false,
             infiniteDate,
         );
-
-        // setCookie("nis", nis, { cookies });
-        // setCookie("password", password, { cookies });
-        // setCookie("rememberMe", formData.get("rememberMe")?.toString() ?? "", {
-        //     cookies,
-        // });
 
         // const user = await db
         //     .select()
@@ -54,16 +48,13 @@ export async function authenticate(_: any, formData: FormData) {
         //     return { status: 401, message: "Invalid email or password" };
         // }
 
-        // console.log(user[0]);
-
         // await setCookies(email, user[0].id);
+        return { status: 200, message: "Login Success" };
     } catch (error) {
         console.log(error);
 
         if (isRedirectError(error)) throw error;
         return { status: 401, message: `${error}`, data: formData };
-    } finally {
-        redirect("/");
     }
 }
 

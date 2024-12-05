@@ -6,6 +6,8 @@ import { SheetSidebarProvider } from "./(components)/sheet-sidebar/sheet-sidebar
 import { SidebarProvider } from "./(sections)/sidebar-section/sidebar-provider";
 import "./globals.css";
 import { ReactNode } from "react";
+import { CustomDialogLoadingProvider } from "@/components/custom-dialog/custom-dialog-loading-provider";
+import CustomDialogLoading from "@/components/custom-dialog/custom-dialog-loading";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -31,13 +33,15 @@ export default function RootLayout({
             >
                 <SheetSidebarProvider>
                     <SidebarProvider>
-                        <div className="flex h-full w-full flex-row overflow-hidden">
-                            <SidebarSection />
-                            <div className="flex h-full flex-1 flex-col">
-                                <DashboardHeader />
-                                {children}
+                        <CustomDialogLoadingProvider>
+                            <div className="flex h-full w-full flex-row overflow-hidden">
+                                <SidebarSection />
+                                <div className="flex h-full flex-1 flex-col">
+                                    <DashboardHeader />
+                                    {children}
+                                </div>
                             </div>
-                        </div>
+                        </CustomDialogLoadingProvider>
                     </SidebarProvider>
                 </SheetSidebarProvider>
             </body>

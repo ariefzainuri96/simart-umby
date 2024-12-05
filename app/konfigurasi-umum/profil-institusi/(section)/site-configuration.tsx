@@ -7,6 +7,8 @@ import Row from "@/components/row";
 import CustomTextfield from "@/components/custom-textfield";
 import CustomButton from "@/components/custom-button";
 import CustomFilePicker from "@/components/custom-file-picker";
+import { useCustomDialogLoadingContext } from "@/components/custom-dialog/custom-dialog-loading-provider";
+import { delay } from "@/lib/utils";
 
 export default function SiteConfiguration() {
     const {
@@ -15,6 +17,7 @@ export default function SiteConfiguration() {
         handleSiteConfigurationChange,
         updateSiteConfiguration,
     } = useProfileInstitusiContext();
+    const { setOpen } = useCustomDialogLoadingContext();
 
     return (
         <Column className="w-full">
@@ -109,10 +112,16 @@ export default function SiteConfiguration() {
                     backgroundColor="#4CD964"
                     buttonHeight={53}
                     paddingHorizontal={24}
-                    onClick={(e) => {
+                    onClick={async (e) => {
                         e.preventDefault();
 
                         save();
+
+                        setOpen(true);
+
+                        await delay(1500);
+
+                        setOpen(false);
                     }}
                 />
                 <CustomButton

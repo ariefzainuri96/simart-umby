@@ -3,9 +3,9 @@
 import Row from "@/components/row";
 import Image from "next/image";
 import React from "react";
-import usePengumuman from "../use-pengumuman";
 import { twMerge } from "tailwind-merge";
 import icDelete from "@/public/icons/ic-delete.svg";
+import usePengumuman from "@/hooks/konfigurasi-umum/pengumuman/use-pengumuman";
 
 const PengumumanDataTable = () => {
     const { pengumumanList } = usePengumuman();

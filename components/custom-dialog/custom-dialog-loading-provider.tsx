@@ -25,11 +25,11 @@ export function useCustomDialogLoadingContext() {
 }
 
 // Create the provider component
-export const CustomDialogLoadingProvider = ({
+export default function CustomDialogLoadingProvider({
     children,
 }: {
     children: ReactNode;
-}) => {
+}) {
     const customDialog = useCustomDialog();
 
     return (
@@ -38,4 +38,4 @@ export const CustomDialogLoadingProvider = ({
             {children}
         </CustomDialogLoadingContext.Provider>
     );
-};
+}

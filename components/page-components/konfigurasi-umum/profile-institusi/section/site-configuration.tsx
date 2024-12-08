@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-import { useProfileInstitusiContext } from "../profile-institusi-provider";
 import Column from "@/components/column";
 import Row from "@/components/row";
 import CustomTextfield from "@/components/custom-textfield";
@@ -9,6 +7,7 @@ import CustomButton from "@/components/custom-button";
 import CustomFilePicker from "@/components/custom-file-picker";
 import { useCustomDialogLoadingContext } from "@/components/custom-dialog/custom-dialog-loading-provider";
 import { delay } from "@/lib/utils";
+import { useProfileInstitusiContext } from "../component/profile-institusi-provider";
 
 export default function SiteConfiguration() {
     const {

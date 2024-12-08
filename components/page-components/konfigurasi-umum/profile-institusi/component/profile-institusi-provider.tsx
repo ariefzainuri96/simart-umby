@@ -1,7 +1,7 @@
 "use client";
 
+import useProfileInstitusi from "@/hooks/konfigurasi-umum/profil-institusi/use-profile-institusi";
 import React, { createContext, ReactNode, useContext } from "react";
-import useProfileInstitusi from "./use-profile-institusi";
 
 // Define the context type
 type ProfileInstitusiContextType = ReturnType<typeof useProfileInstitusi>;

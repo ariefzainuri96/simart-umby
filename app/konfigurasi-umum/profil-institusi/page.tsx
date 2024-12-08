@@ -1,11 +1,11 @@
 import Breadcrumbs from "@/components/breadcrumbs";
 import Column from "@/components/column";
 import React from "react";
-import MailConfiguration from "./(section)/mail-configuration";
-import Revisi from "./(section)/revisi";
-import { ProfileInstitusiProvider } from "./profile-institusi-provider";
-import SiteConfiguration from "./(section)/site-configuration";
 import { Metadata } from "next";
+import MailConfiguration from "@/components/page-components/konfigurasi-umum/profile-institusi/section/mail-configuration";
+import Revisi from "@/components/page-components/konfigurasi-umum/profile-institusi/section/revisi";
+import SiteConfiguration from "@/components/page-components/konfigurasi-umum/profile-institusi/section/site-configuration";
+import { ProfileInstitusiProvider } from "@/components/page-components/konfigurasi-umum/profile-institusi/component/profile-institusi-provider";
 
 export const metadata: Metadata = {
     title: "Profil Institusi",

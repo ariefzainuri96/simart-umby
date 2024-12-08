@@ -2,14 +2,14 @@
 
 import { Accordion } from "@/components/ui/accordion";
 import { menuList } from "@/model/dashboard/menu-model";
-import { MenuItem } from "../../(components)/menu-item";
 import { twMerge } from "tailwind-merge";
 import Image from "next/image";
 import ImgLogo from "@/public/images/img-logo.png";
 import { usePathname } from "next/navigation";
 import { useSidebarContext } from "./sidebar-provider";
 import { useEffect } from "react";
-import { useSheetSidebarContext } from "@/app/(components)/sheet-sidebar/sheet-sidebar-provider";
+import { useSheetSidebarContext } from "../../components/sheet-sidebar/sheet-sidebar-provider";
+import { MenuItem } from "../../components/menu-item";
 
 type SidebarSectionProps = {
     isForDrawer?: boolean;

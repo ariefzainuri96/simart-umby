@@ -1,13 +1,12 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import DashboardHeader from "./(sections)/dashboard-header";
-import SidebarSection from "./(sections)/sidebar-section/sidebar-section";
-import { SheetSidebarProvider } from "./(components)/sheet-sidebar/sheet-sidebar-provider";
-import { SidebarProvider } from "./(sections)/sidebar-section/sidebar-provider";
 import "./globals.css";
 import { ReactNode } from "react";
-import { CustomDialogLoadingProvider } from "@/components/custom-dialog/custom-dialog-loading-provider";
-import CustomDialogLoading from "@/components/custom-dialog/custom-dialog-loading";
+import { SheetSidebarProvider } from "@/components/page-components/dashboard/components/sheet-sidebar/sheet-sidebar-provider";
+import { SidebarProvider } from "@/components/page-components/dashboard/sections/sidebar-section/sidebar-provider";
+import DashboardHeader from "@/components/page-components/dashboard/sections/dashboard-header";
+import SidebarSection from "@/components/page-components/dashboard/sections/sidebar-section/sidebar-section";
+import CustomDialogLoadingProvider from "@/components/custom-dialog/custom-dialog-loading-provider";
 
 const poppins = Poppins({
     subsets: ["latin"],

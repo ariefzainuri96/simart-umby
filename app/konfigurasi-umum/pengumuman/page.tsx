@@ -1,8 +1,7 @@
 import Breadcrumbs from "@/components/breadcrumbs";
 import Column from "@/components/column";
-import React from "react";
-import PengumumanAction from "./(section)/action";
-import PengumumanDataTable from "./(section)/pengumuman-data-table";
+import PengumumanAction from "@/components/page-components/konfigurasi-umum/pengumuman/section/action";
+import PengumumanDataTable from "@/components/page-components/konfigurasi-umum/pengumuman/section/pengumuman-data-table";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

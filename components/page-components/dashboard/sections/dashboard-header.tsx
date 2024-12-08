@@ -8,8 +8,8 @@ import { twMerge } from "tailwind-merge";
 import icSearch from "@/public/icons/ic-search.svg";
 import icClock from "@/public/icons/ic-clock.svg";
 import icNotification from "@/public/icons/ic-notification.svg";
-import LogoutPopover from "../(components)/logout-popover";
-import SheetSidebar from "../(components)/sheet-sidebar/sheet-sidebar";
+import LogoutPopover from "../components/logout-popover";
+import SheetSidebar from "../components/sheet-sidebar/sheet-sidebar";
 
 const DashboardHeader = () => {
     const pathname = usePathname();

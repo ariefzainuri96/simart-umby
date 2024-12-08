@@ -1,14 +1,13 @@
 "use client";
 
 import React from "react";
-import { useProfileInstitusiContext } from "../profile-institusi-provider";
 import Column from "@/components/column";
 import CustomTextfield from "@/components/custom-textfield";
 import { Minus, Plus } from "lucide-react";
+import { useProfileInstitusiContext } from "../component/profile-institusi-provider";
 
 export default function Revisi() {
-    const { form, updateForm, handleChange, handleSiteConfigurationChange } =
-        useProfileInstitusiContext();
+    const { form, updateForm, handleChange } = useProfileInstitusiContext();
 
     return (
         <Column className="w-full">

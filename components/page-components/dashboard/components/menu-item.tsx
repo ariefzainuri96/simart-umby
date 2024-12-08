@@ -17,7 +17,7 @@ import IcManajemenInventaris from "@/public/icons/ic-manajemen-inventaris.svg";
 import { twMerge } from "tailwind-merge";
 import { useSheetSidebarContext } from "./sheet-sidebar/sheet-sidebar-provider";
 import { useRouter } from "next/navigation";
-import { useSidebarContext } from "../(sections)/sidebar-section/sidebar-provider";
+import { useSidebarContext } from "../sections/sidebar-section/sidebar-provider";
 
 export const MenuItem = ({ data }: { data: MenuModel }) => {
     const router = useRouter();

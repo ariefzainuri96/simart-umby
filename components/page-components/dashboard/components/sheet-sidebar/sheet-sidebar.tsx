@@ -6,9 +6,9 @@ import {
     SheetHeader,
 } from "@/components/ui/sheet";
 import React from "react";
-import SidebarSection from "../../(sections)/sidebar-section/sidebar-section";
 import { Menu } from "lucide-react";
 import { useSheetSidebarContext } from "./sheet-sidebar-provider";
+import SidebarSection from "../../sections/sidebar-section/sidebar-section";
 
 export default function SheetSidebar() {
     const { sheetOpen, setSheetOpen } = useSheetSidebarContext();

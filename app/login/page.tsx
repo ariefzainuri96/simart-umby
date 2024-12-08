@@ -1,5 +1,5 @@
-import { Announcement } from "./(sections)/announcement";
-import LoginForm from "./(sections)/login-form";
+import { Announcement } from "@/components/page-components/login/section/announcement";
+import LoginForm from "@/components/page-components/login/section/login-form";
 
 const Login = () => {
     return (

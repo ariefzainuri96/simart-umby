@@ -6,7 +6,7 @@ import { SheetSidebarProvider } from "@/components/page-components/dashboard/com
 import { SidebarProvider } from "@/components/page-components/dashboard/sections/sidebar-section/sidebar-provider";
 import DashboardHeader from "@/components/page-components/dashboard/sections/dashboard-header";
 import SidebarSection from "@/components/page-components/dashboard/sections/sidebar-section/sidebar-section";
-import CustomDialogLoadingProvider from "@/components/custom-dialog/custom-dialog-loading-provider";
+import CustomDialogLoadingProvider from "@/components/reusable-components/custom-dialog-loading/custom-dialog-loading-provider";
 
 const poppins = Poppins({
     subsets: ["latin"],

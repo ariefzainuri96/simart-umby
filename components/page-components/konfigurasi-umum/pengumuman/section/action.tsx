@@ -1,5 +1,5 @@
-import CustomButton from "@/components/custom-button";
-import Row from "@/components/row";
+import CustomButton from "@/components/reusable-components/custom-button";
+import Row from "@/components/reusable-components/row";
 import { Plus } from "lucide-react";
 import Image from "next/image";
 import React from "react";

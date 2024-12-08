@@ -1,11 +1,11 @@
 "use client";
 
-import Column from "@/components/column";
-import Row from "@/components/row";
-import CustomTextfield from "@/components/custom-textfield";
-import CustomButton from "@/components/custom-button";
-import CustomFilePicker from "@/components/custom-file-picker";
-import { useCustomDialogLoadingContext } from "@/components/custom-dialog/custom-dialog-loading-provider";
+import Column from "@/components/reusable-components/column";
+import Row from "@/components/reusable-components/row";
+import CustomTextfield from "@/components/reusable-components/custom-textfield";
+import CustomButton from "@/components/reusable-components/custom-button";
+import CustomFilePicker from "@/components/reusable-components/custom-file-picker";
+import { useCustomDialogLoadingContext } from "@/components/reusable-components/custom-dialog-loading/custom-dialog-loading-provider";
 import { delay } from "@/lib/utils";
 import { useProfileInstitusiContext } from "../component/profile-institusi-provider";
 

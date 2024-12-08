@@ -1,5 +1,5 @@
-import Breadcrumbs from "@/components/breadcrumbs";
-import Column from "@/components/column";
+import Breadcrumbs from "@/components/reusable-components/breadcrumbs";
+import Column from "@/components/reusable-components/column";
 import React from "react";
 import { Metadata } from "next";
 import MailConfiguration from "@/components/page-components/konfigurasi-umum/profile-institusi/section/mail-configuration";

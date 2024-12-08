@@ -1,6 +1,6 @@
 "use client";
 
-import Row from "@/components/row";
+import Row from "@/components/reusable-components/row";
 import Image from "next/image";
 import React from "react";
 import { twMerge } from "tailwind-merge";

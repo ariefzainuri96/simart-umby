@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Dialog, DialogContent, DialogTitle } from "../ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "../../ui/dialog";
 import { useCustomDialogLoadingContext } from "./custom-dialog-loading-provider";
 import CircularProgress from "../circular-progress";
 import Column from "../column";

@@ -3,13 +3,13 @@
 import { authenticate, decrypt } from "@/lib/auth";
 import Image from "next/image";
 import { useFormState, useFormStatus } from "react-dom";
-import { CustomCheck } from "@/components/custom-check";
+import { CustomCheck } from "@/components/reusable-components/custom-check";
 import IcWarning from "@/public/icons/ic-warning.svg";
 import UmbyLogo from "@/public/images/umby-logo.png";
-import CustomTextfield from "@/components/custom-textfield";
+import CustomTextfield from "@/components/reusable-components/custom-textfield";
 import { useEffect, useState } from "react";
 import { getCookies } from "cookies-next";
-import { useCustomDialogLoadingContext } from "@/components/custom-dialog/custom-dialog-loading-provider";
+import { useCustomDialogLoadingContext } from "@/components/reusable-components/custom-dialog-loading/custom-dialog-loading-provider";
 import { useRouter } from "next/navigation";
 
 const LoginForm = () => {

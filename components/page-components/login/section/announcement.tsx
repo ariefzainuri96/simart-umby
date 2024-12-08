@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Bullhorn from "@/public/icons/ic-bullhorn.svg";
 import SplashBackground from "@/public/images/splash-background.png";
-import { TAnnouncement } from "../model/t-announcement";
-import { AnnouncementItem } from "../../../components/announcement-item";
+import { AnnouncementItem } from "@/components/reusable-components/announcement-item";
+import { TAnnouncement } from "@/model/login/t-announcement";
 
 export const Announcement = () => {
     const announcements: TAnnouncement[] = [

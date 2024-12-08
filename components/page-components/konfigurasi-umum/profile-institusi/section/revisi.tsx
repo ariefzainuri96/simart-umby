@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import Column from "@/components/column";
-import CustomTextfield from "@/components/custom-textfield";
+import Column from "@/components/reusable-components/column";
+import CustomTextfield from "@/components/reusable-components/custom-textfield";
 import { Minus, Plus } from "lucide-react";
 import { useProfileInstitusiContext } from "../component/profile-institusi-provider";
 

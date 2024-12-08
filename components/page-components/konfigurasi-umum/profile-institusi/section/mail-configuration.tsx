@@ -1,11 +1,11 @@
 "use client";
 
-import Column from "@/components/column";
-import CustomTextfield from "@/components/custom-textfield";
-import Row from "@/components/row";
+import Column from "@/components/reusable-components/column";
+import CustomTextfield from "@/components/reusable-components/custom-textfield";
+import Row from "@/components/reusable-components/row";
 import React from "react";
 import { twMerge } from "tailwind-merge";
-import CustomRadio from "@/components/custom-radio";
+import CustomRadio from "@/components/reusable-components/custom-radio";
 import { useProfileInstitusiContext } from "../component/profile-institusi-provider";
 
 export default function MailConfiguration({

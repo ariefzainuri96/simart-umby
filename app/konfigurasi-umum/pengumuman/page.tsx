@@ -1,5 +1,5 @@
-import Breadcrumbs from "@/components/breadcrumbs";
-import Column from "@/components/column";
+import Breadcrumbs from "@/components/reusable-components/breadcrumbs";
+import Column from "@/components/reusable-components/column";
 import PengumumanAction from "@/components/page-components/konfigurasi-umum/pengumuman/section/action";
 import PengumumanDataTable from "@/components/page-components/konfigurasi-umum/pengumuman/section/pengumuman-data-table";
 import { Metadata } from "next";

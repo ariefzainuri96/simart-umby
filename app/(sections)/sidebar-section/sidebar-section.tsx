@@ -22,8 +22,8 @@ export default function SidebarSection({ isForDrawer }: SidebarSectionProps) {
 
     useEffect(() => {
         function checkWindowSize() {
-            // lg: tailwind breakpoint
-            if (window.innerWidth > 1024) {
+            // xl: tailwind breakpoint
+            if (window.innerWidth > 1280) {
                 setSheetOpen(false);
             }
         }
@@ -43,7 +43,7 @@ export default function SidebarSection({ isForDrawer }: SidebarSectionProps) {
                     ? "hidden"
                     : isForDrawer
                       ? ""
-                      : "hidden lg:block",
+                      : "hidden xl:block",
             )}
         >
             <div className="flex flex-col">

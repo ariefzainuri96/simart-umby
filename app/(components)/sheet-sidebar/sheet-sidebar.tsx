@@ -14,7 +14,7 @@ export default function SheetSidebar() {
     const { sheetOpen, setSheetOpen } = useSheetSidebarContext();
 
     return (
-        <div className="block lg:hidden">
+        <div className="block xl:hidden">
             <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
                 <SheetTrigger asChild>
                     <Menu

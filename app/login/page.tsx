@@ -1,5 +1,10 @@
 import { Announcement } from "@/components/page-components/login/section/announcement";
 import LoginForm from "@/components/page-components/login/section/login-form";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Login",
+};
 
 const Login = () => {
     return (

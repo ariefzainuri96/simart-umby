@@ -37,7 +37,7 @@ const CustomButton = ({
 
     const outlinedStyle: React.CSSProperties = {
         borderColor: borderColor,
-        color: borderColor,
+        color: textColor ?? borderColor,
         border: "1px solid",
         height: buttonHeight,
         paddingInline: paddingHorizontal,

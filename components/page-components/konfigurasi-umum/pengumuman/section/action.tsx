@@ -5,6 +5,7 @@ import Image from "next/image";
 import React from "react";
 import icFilter from "@/public/icons/ic-filter-3.svg";
 import icDelete from "@/public/icons/ic-delete.svg";
+import TambahPengumumanBaruDialog from "../component/tambah-pengumuman-baru";
 
 const PengumumanAction = () => {
     const IcSearch = () => (
@@ -72,11 +73,15 @@ const PengumumanAction = () => {
                         />
                     }
                 />
-                <CustomButton
-                    title={"Tambah Pengumuman Baru"}
-                    variant="filled"
-                    backgroundColor="#5CB85C"
-                    Icon={<Plus width={16} height={16} />}
+                <TambahPengumumanBaruDialog
+                    trigger={
+                        <CustomButton
+                            title={"Tambah Pengumuman Baru"}
+                            variant="filled"
+                            backgroundColor="#5CB85C"
+                            Icon={<Plus width={16} height={16} />}
+                        />
+                    }
                 />
             </div>
         </div>

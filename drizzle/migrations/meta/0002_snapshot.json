@@ -1,84 +1,21 @@
 {
-  "id": "92eb1e46-fc4c-4c62-9278-b6142824d1d6",
-  "prevId": "7b750993-7d4c-4b9e-a332-cdbee4bf4d2b",
+  "id": "29cdcb26-2cdd-4a2a-a84f-425da1b4f1bb",
+  "prevId": "317ef39e-0c57-433e-a40d-00c63ece6b18",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.product": {
-      "name": "product",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "price": {
-          "name": "price",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "quantity": {
-          "name": "quantity",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "product_userId_user_id_fk": {
-          "name": "product_userId_user_id_fk",
-          "tableFrom": "product",
-          "tableTo": "user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "checkConstraints": {}
-    },
     "public.user": {
       "name": "user",
       "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "uuid",
+          "type": "serial",
           "primaryKey": true,
-          "notNull": true,
-          "default": "gen_random_uuid()"
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar(255)",
-          "primaryKey": false,
           "notNull": true
         },
-        "email": {
-          "name": "email",
+        "nis": {
+          "name": "nis",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
@@ -88,17 +25,24 @@
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "''"
         }
       },
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "user_email_unique": {
-          "name": "user_email_unique",
+        "user_nis_unique": {
+          "name": "user_nis_unique",
           "nullsNotDistinct": false,
           "columns": [
-            "email"
+            "nis"
           ]
         }
       },

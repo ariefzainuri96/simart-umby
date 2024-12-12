@@ -1,0 +1,1 @@
+ALTER TABLE "pengumuman" DROP COLUMN IF EXISTS "pengumumanDate";

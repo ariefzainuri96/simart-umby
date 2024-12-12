@@ -1,12 +1,15 @@
-import { table } from "console";
-import { relations } from "drizzle-orm";
-// import UserTable from "./schema/user-table";
-import { PengumumanTable } from "./schema/pengumuman-table";
 import { UserTable } from "./schema/user-table";
+import { PengumumanTable } from "./schema/pengumuman-table";
+import {
+    PengumumanTableRelations,
+    UserTableRelations,
+} from "./schema/relations";
 
-export const schema = {
-    user: UserTable,
-    pengumuman: PengumumanTable,
+export default {
+    UserTable,
+    PengumumanTable,
+    PengumumanTableRelations,
+    UserTableRelations,
 };
 
 // export const ProductTable = pgTable("product", {
@@ -46,5 +49,23 @@ export const schema = {
 // export const UserTableRelations = relations(UserTable, ({ many }) => {
 //     return {
 //         products: many(ProductTable),
+//     };
+// });
+
+// export const PengumumanTableRelations = relations(
+//     PengumumanTable,
+//     ({ one }) => {
+//         return {
+//             author: one(UserTable, {
+//                 fields: [PengumumanTable.authorId],
+//                 references: [UserTable.id],
+//             }),
+//         };
+//     },
+// );
+
+// export const UserTableRelations = relations(UserTable, ({ many }) => {
+//     return {
+//         pengumuman: many(PengumumanTable),
 //     };
 // });

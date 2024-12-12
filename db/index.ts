@@ -1,40 +1,56 @@
-export * from "./db";
-
-import "dotenv/config";
-import { drizzle } from "drizzle-orm/postgres-js";
-import { eq } from "drizzle-orm";
-import { UserTable } from "./schema/user-table";
-
-const db = drizzle(process.env.DATABASE_URL as string);
+import { db } from "./db";
+import { and, eq } from "drizzle-orm";
+import { PengumumanTable } from "./schema/pengumuman-table";
 
 async function main() {
-    console.log("Inserting user...");
+    // for inserting use values
+    // for updating use set
 
-    const data = await db
-        .insert(UserTable)
-        .values({
-            nis: "sm-5",
-            password: "123",
-        })
-        .returning({
-            id: UserTable.id,
-        });
+    const data = await db.query.PengumumanTable.findMany({
+        with: {
+            author: true,
+        },
+        // where: (fields, operators) => {
+        //     return operators.eq(fields.authorId, 1);
+        // },
+        where: and(
+            eq(PengumumanTable.authorId, 1),
+            eq(PengumumanTable.judul, "Pengumuman Baru 3"),
+        ),
+    });
 
-    console.log(data);
-    // const user: typeof UserTable.$inferInsert = {
-    //     name: "John",
-    // };
-    // await db.insert(UserTable).values(user);
-    // console.log("New user created!");
-    // const users = await db.select().from(UserTabRle);
-    // console.log("Getting all users from the database: ", users);
-    // await db
+    // const date = new Date();
+
+    // const data = await db
+    //     .insert(PengumumanTable)
+    //     .values({
+    //         judul: "Pengumuman Baru 4",
+    //         pengumuman: "Deskripsi Pengumuman Baru 4",
+    //         lampiran: "Lampiran Pengumuman Baru 4",
+    //         tanggal: format(date, "yyyy-MM-dd"),
+    //         authorId: 1,
+    //     })
+    //     .returning({
+    //         id: PengumumanTable.id,
+    //         judul: PengumumanTable.judul,
+    //     });
+
+    // const data = await db
     //     .update(UserTable)
     //     .set({
-    //         name: "John Cena",
+    //         nis: "sm-2",
     //     })
-    //     .where(eq(UserTable.id, users[users.length].id));
-    // console.log("User info updated!");
+    //     .where(eq(UserTable.nis, "sm-1"))
+    //     .returning({
+    //         id: UserTable.id,
+    //     });
+
+    data.forEach((element) => {
+        console.log(element);
+        // element.pengumuman.forEach((pengumuman) => {
+        //     console.log(pengumuman);
+        // });
+    });
 }
 
 main();

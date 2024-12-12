@@ -1,0 +1,1 @@
+ALTER TABLE "pengumuman" ALTER COLUMN "authorId" DROP DEFAULT;

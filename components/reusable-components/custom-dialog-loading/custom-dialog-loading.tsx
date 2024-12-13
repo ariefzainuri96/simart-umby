@@ -17,7 +17,7 @@ export default function CustomDialogLoading() {
             >
                 <DialogTitle className="p-0"></DialogTitle>
                 <Column className="items-center gap-2 pb-3">
-                    <CircularProgress className="" />
+                    <CircularProgress />
                     <span className="poppins500-14">Loading...</span>
                 </Column>
             </DialogContent>

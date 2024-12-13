@@ -1,14 +1,15 @@
-"use client";
-
 import Row from "@/components/reusable-components/row";
 import Image from "next/image";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import icDelete from "@/public/icons/ic-delete.svg";
-import usePengumuman from "@/hooks/konfigurasi-umum/pengumuman/use-pengumuman";
+import {
+    getPengumumanById,
+    TPengumumanTable,
+} from "@/actions/pengumuman-actions";
 
-const PengumumanDataTable = () => {
-    const { pengumumanList } = usePengumuman();
+const PengumumanDataTable = async () => {
+    const pengumumanList: TPengumumanTable[] = await getPengumumanById();
 
     const IcEdit = () => {
         return (
@@ -72,8 +73,8 @@ const PengumumanDataTable = () => {
                                     </Row>
                                 </td>
                                 <td className="px-3 py-4">{item.tanggal}</td>
-                                <td className="px-3 py-4">{item.title}</td>
-                                <td className="px-3 py-4">{item.deskripsi}</td>
+                                <td className="px-3 py-4">{item.judul}</td>
+                                <td className="px-3 py-4">{item.pengumuman}</td>
                                 <td className="py-4 pl-3 pr-6">
                                     {item.lampiran}
                                 </td>

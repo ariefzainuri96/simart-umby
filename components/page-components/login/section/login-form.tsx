@@ -41,7 +41,7 @@ const LoginForm = () => {
         if (response) setOpen(false);
 
         if (response?.status === 200) {
-            router.replace("/login");
+            router.replace("/");
         }
     }, [response]);
 

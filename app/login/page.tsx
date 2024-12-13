@@ -1,4 +1,4 @@
-import { Announcement } from "@/components/page-components/login/section/announcement";
+import Announcement from "@/components/page-components/login/section/announcement";
 import LoginForm from "@/components/page-components/login/section/login-form";
 import { Metadata } from "next";
 

@@ -3,11 +3,12 @@
 import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
 import { isRedirectError } from "next/dist/client/components/redirect";
-import { delay } from "./utils";
-// import { UserTable } from "../db/schema";
+import { db } from "@/db/db";
+import { eq } from "drizzle-orm";
+import { UserTable } from "@/db/schema/user-table";
+import bcrypt from "bcryptjs";
 
-// type TUser = typeof UserTable.$inferSelect;
-
+// const bcrypt = require("bcryptjs");
 const secretKey = process.env.SECRET_KEY;
 const key = new TextEncoder().encode(secretKey);
 
@@ -20,36 +21,31 @@ export async function authenticate(_: any, formData: FormData) {
         const rememberMe =
             (formData.get("rememberMe")?.toString() ?? "") === "on";
 
-        console.log(nis, password, rememberMe);
+        console.log("login =>", `${nis}, ${password}, ${rememberMe}`);
 
-        await delay(1500);
-        await setAuthCookies(nis, "123");
-        await setCookies(
-            "authData",
-            {
-                nis: nis,
-                password: password,
-                rememberMe: formData.get("rememberMe")?.toString() ?? "",
-            },
-            false,
-            infiniteDate,
-        );
+        const user = await db.query.UserTable.findFirst({
+            where: eq(UserTable.nis, nis),
+        });
 
-        // const user = await db
-        //     .select()
-        //     .from(UserTable)
-        //     .where(eq(UserTable.email, email));
+        if (user && bcrypt.compareSync(password, user.password)) {
+            console.log("user =>", user);
 
-        // if (user.length === 0) {
-        //     return { status: 401, message: "Invalid email or password" };
-        // }
+            await setAuthCookies(nis, `${user.id}`);
+            await setCookies(
+                "authData",
+                {
+                    nis: nis,
+                    password: password,
+                    rememberMe: formData.get("rememberMe")?.toString() ?? "",
+                },
+                false,
+                infiniteDate,
+            );
 
-        // if (!bcrypt.compareSync(password, user[0].password)) {
-        //     return { status: 401, message: "Invalid email or password" };
-        // }
-
-        // await setCookies(email, user[0].id);
-        return { status: 200, message: "Login Success" };
+            return { status: 200, message: "Login Success" };
+        } else {
+            return { status: 401, message: "Invalid email or password" };
+        }
     } catch (error) {
         console.log(error);
 

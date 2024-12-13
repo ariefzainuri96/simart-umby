@@ -4,7 +4,7 @@ import SplashBackground from "@/public/images/splash-background.png";
 import { AnnouncementItem } from "@/components/reusable-components/announcement-item";
 import { TAnnouncement } from "@/model/login/t-announcement";
 
-export const Announcement = () => {
+export default function Announcement() {
     const announcements: TAnnouncement[] = [
         {
             title: "Test Pengumuman",
@@ -49,4 +49,4 @@ export const Announcement = () => {
             </div>
         </div>
     );
-};
+}

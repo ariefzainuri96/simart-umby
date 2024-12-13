@@ -87,7 +87,7 @@ export default function CustomTextfield({
                         onBlur={() => setIsFocused(false)}
                         onChange={handleAreaChange}
                         className={twMerge(
-                            `poppins500-16 h-[56px] w-full rounded-md border px-6 py-2 transition-colors ${
+                            `poppins500-16 w-full rounded-md border px-6 py-4 transition-colors ${
                                 isFocused || isHovered
                                     ? "border-[#18469C]"
                                     : "border-[#BFBFBF]"

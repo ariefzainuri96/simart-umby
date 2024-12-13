@@ -32,14 +32,16 @@ const PengumumanDataTable = async () => {
         <div className="mt-4 w-full overflow-hidden rounded-[8px] border border-[#EFEFEF]">
             <table className="w-full">
                 <thead className="text-left text-[.875rem] font-semibold text-[#465478]">
-                    <th className="py-4 pl-6 pr-3">
-                        <input className="size-4" type="checkbox" />
-                    </th>
-                    <th className="px-3">Aksi</th>
-                    <th className="px-3">Tanggal</th>
-                    <th className="px-3">Judul</th>
-                    <th className="px-3">Isi Pengumuman</th>
-                    <th className="pl-3 pr-6">Lampiran</th>
+                    <tr>
+                        <th className="py-4 pl-6 pr-3">
+                            <input className="size-4" type="checkbox" />
+                        </th>
+                        <th className="px-3">Aksi</th>
+                        <th className="px-3">Tanggal</th>
+                        <th className="px-3">Judul</th>
+                        <th className="px-3">Isi Pengumuman</th>
+                        <th className="pl-3 pr-6">Lampiran</th>
+                    </tr>
                 </thead>
                 <tbody className="text-left">
                     {pengumumanList.map((item, index) => {

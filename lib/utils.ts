@@ -18,3 +18,7 @@ export function toTitleCase(sentence: string): string {
         )
         .join(" ");
 }
+
+export async function sanitizeData(data: any) {
+    return JSON.parse(JSON.stringify(data));
+}

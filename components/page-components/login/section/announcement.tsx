@@ -1,18 +1,22 @@
 import Image from "next/image";
 import Bullhorn from "@/public/icons/ic-bullhorn.svg";
 import SplashBackground from "@/public/images/splash-background.png";
-import { AnnouncementItem } from "@/components/reusable-components/announcement-item";
-import { TAnnouncement } from "@/model/login/t-announcement";
+import { AnnouncementList } from "./announcement-list";
 
 export default function Announcement() {
-    const announcements: TAnnouncement[] = [
-        {
-            title: "Test Pengumuman",
-            description:
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque enim gravida massa in praesent dictum orci blandit diam. Quis duis purus senectus sit pellentesque. Baca Selengkapnya",
-            date: "5 Februari 2023",
-        },
-    ];
+    // const [refreshKey, setRefreshKey] = useState(1);
+
+    // const refreshAnnouncements = () => setRefreshKey((prev) => prev + 1);
+
+    // const childrenWithProps = Children.map(children, (child) => {
+    //     if (isValidElement(child) && typeof child.type !== "string") {
+    //         return cloneElement(child as React.ReactElement<any>, {
+    //             key: refreshKey,
+    //         });
+    //     }
+
+    //     return child;
+    // });
 
     return (
         <div className="relative h-full w-full">
@@ -28,7 +32,7 @@ export default function Announcement() {
             <div className="absolute inset-0 z-10 overflow-y-auto">
                 <div className="flex flex-col items-start px-[2rem] py-[3rem]">
                     {/* pengumuman */}
-                    <div className="mb-[2rem] flex flex-row items-center gap-[1rem]">
+                    <div className="mb-[1rem] flex flex-row items-center gap-[1rem]">
                         <div className="flex size-[2rem] justify-center rounded-[8px] bg-[rgba(255,255,255,0.3)]">
                             <Image
                                 src={Bullhorn}
@@ -41,10 +45,7 @@ export default function Announcement() {
                             Pengumuman
                         </span>
                     </div>
-                    {/* pengumuman list */}
-                    {announcements.map((item, index) => {
-                        return <AnnouncementItem key={index} data={item} />;
-                    })}
+                    <AnnouncementList />
                 </div>
             </div>
         </div>

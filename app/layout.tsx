@@ -1,12 +1,16 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import "./globals.css";
 import { ReactNode } from "react";
 import { SheetSidebarProvider } from "@/components/page-components/dashboard/components/sheet-sidebar/sheet-sidebar-provider";
 import { SidebarProvider } from "@/components/page-components/dashboard/sections/sidebar-section/sidebar-provider";
 import DashboardHeader from "@/components/page-components/dashboard/sections/dashboard-header";
 import SidebarSection from "@/components/page-components/dashboard/sections/sidebar-section/sidebar-section";
 import CustomDialogLoadingProvider from "@/components/reusable-components/custom-dialog-loading/custom-dialog-loading-provider";
+import CustomDialogErrorProvider from "@/components/reusable-components/custom-dialog-error/custom-dialog-loading-provider";
+import "./globals.css";
+import ErrorBoundary from "@/components/reusable-components/error-boundary";
+import ReactQueryProvider from "@/components/reusable-components/react-query-provider";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -30,19 +34,25 @@ export default function RootLayout({
                     poppins.className + " h-screen w-screen overflow-hidden"
                 }
             >
-                <SheetSidebarProvider>
-                    <SidebarProvider>
-                        <CustomDialogLoadingProvider>
-                            <div className="flex h-full w-full flex-row overflow-hidden">
-                                <SidebarSection />
-                                <div className="flex h-full flex-1 flex-col">
-                                    <DashboardHeader />
-                                    {children}
-                                </div>
-                            </div>
-                        </CustomDialogLoadingProvider>
-                    </SidebarProvider>
-                </SheetSidebarProvider>
+                <ReactQueryProvider>
+                    <ErrorBoundary>
+                        <SheetSidebarProvider>
+                            <SidebarProvider>
+                                <CustomDialogLoadingProvider>
+                                    <CustomDialogErrorProvider>
+                                        <div className="flex h-full w-full flex-row overflow-hidden">
+                                            <SidebarSection />
+                                            <div className="flex h-full flex-1 flex-col">
+                                                <DashboardHeader />
+                                                {children}
+                                            </div>
+                                        </div>
+                                    </CustomDialogErrorProvider>
+                                </CustomDialogLoadingProvider>
+                            </SidebarProvider>
+                        </SheetSidebarProvider>
+                    </ErrorBoundary>
+                </ReactQueryProvider>
             </body>
         </html>
     );

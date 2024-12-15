@@ -11,8 +11,11 @@ import { useEffect, useState } from "react";
 import { getCookies } from "cookies-next";
 import { useCustomDialogLoadingContext } from "@/components/reusable-components/custom-dialog-loading/custom-dialog-loading-provider";
 import { useRouter } from "next/navigation";
+import { useCustomDialogErrorContext } from "@/components/reusable-components/custom-dialog-error/custom-dialog-loading-provider";
 
 const LoginForm = () => {
+    const { setOpen: setDialogErrorOpen, setError } =
+        useCustomDialogErrorContext();
     const { setOpen } = useCustomDialogLoadingContext();
     const router = useRouter();
     const [response, dispatch] = useFormState(authenticate, undefined);
@@ -42,6 +45,9 @@ const LoginForm = () => {
 
         if (response?.status === 200) {
             router.replace("/");
+        } else if ((response?.status ?? 0) >= 400) {
+            setDialogErrorOpen(true);
+            setError(response?.message ?? "");
         }
     }, [response]);
 

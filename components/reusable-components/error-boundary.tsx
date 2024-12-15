@@ -4,6 +4,8 @@ import React, { Component, ReactNode, ErrorInfo } from "react";
 
 interface ErrorBoundaryProps {
     children: ReactNode;
+    fallback?: ReactNode;
+    onRetry?: () => void;
 }
 
 interface ErrorBoundaryState {
@@ -28,19 +30,29 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
         console.log({ error, errorInfo });
     }
 
+    resetErrorBoundary = () => {
+        console.log("reset error boundary");
+        this.setState({ hasError: false });
+        this.props.onRetry?.();
+    };
+
     render() {
         // Check if the error is thrown
         if (this.state.hasError) {
             // You can render any custom fallback UI
+            if (this.props.fallback) {
+                return this.props.fallback;
+            }
+
             return (
                 <div>
                     <h2>Oops, there is an error!</h2>
-                    <button
+                    {/* <button
                         type="button"
-                        onClick={() => this.setState({ hasError: false })}
+                        onClick={() => this.resetErrorBoundary()}
                     >
                         Try again?
-                    </button>
+                    </button> */}
                 </div>
             );
         }

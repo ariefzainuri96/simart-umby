@@ -20,10 +20,15 @@ export async function tambahPengumumanBaru(prevState: any, data: FormData) {
     }
 }
 
-export async function getAllPengumuman(): Promise<TPengumumanTable[]> {
+export async function getAllPengumuman(
+    throwError: boolean = false,
+): Promise<TPengumumanTable[]> {
+    if (throwError) {
+        throw new Error("Error");
+    }
+
     try {
         const data = await db.query.PengumumanTable.findMany({});
-        // const data = await db.select().from(PengumumanTable);
 
         return data;
     } catch (error) {

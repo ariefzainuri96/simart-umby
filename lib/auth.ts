@@ -2,7 +2,6 @@
 
 import { cookies } from "next/headers";
 import { SignJWT, jwtVerify } from "jose";
-import { isRedirectError } from "next/dist/client/components/redirect";
 import { db } from "@/db/db";
 import { eq } from "drizzle-orm";
 import { UserTable } from "@/db/schema/user-table";
@@ -18,18 +17,12 @@ export async function authenticate(_: any, formData: FormData) {
     try {
         const nis = formData.get("nis")?.toString() ?? "";
         const password = formData.get("password")?.toString() ?? "";
-        const rememberMe =
-            (formData.get("rememberMe")?.toString() ?? "") === "on";
-
-        console.log("login =>", `${nis}, ${password}, ${rememberMe}`);
 
         const user = await db.query.UserTable.findFirst({
             where: eq(UserTable.nis, nis),
         });
 
         if (user && bcrypt.compareSync(password, user.password)) {
-            console.log("user =>", user);
-
             await setAuthCookies(nis, `${user.id}`);
             await setCookies(
                 "authData",
@@ -47,9 +40,6 @@ export async function authenticate(_: any, formData: FormData) {
             return { status: 401, message: "Invalid email or password" };
         }
     } catch (error) {
-        console.log(error);
-
-        if (isRedirectError(error)) throw error;
         return { status: 401, message: `${error}`, data: formData };
     }
 }

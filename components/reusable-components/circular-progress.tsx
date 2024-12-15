@@ -1,10 +1,17 @@
-import React from "react";
 import { twMerge } from "tailwind-merge";
 
-const CircularLoader = ({ className }: { className?: string }) => {
+const CircularLoader = ({
+    className,
+    width = 50,
+    height = 50,
+}: {
+    className?: string;
+    width?: number;
+    height?: number;
+}) => {
     const loaderStyle = {
-        width: "50px",
-        height: "50px",
+        width: width,
+        height: height,
         border: "5px solid #f3f3f3",
         borderTop: "5px solid #3498db",
         borderRadius: "50%",

@@ -1,6 +1,5 @@
 "use client";
 
-import { tambahPengumumanBaru } from "@/actions/pengumuman-actions";
 import Column from "@/components/reusable-components/column";
 import CustomButton from "@/components/reusable-components/custom-button";
 import { useCustomDialogLoadingContext } from "@/components/reusable-components/custom-dialog-loading/custom-dialog-loading-provider";
@@ -9,14 +8,13 @@ import Row from "@/components/reusable-components/row";
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
 import useTambahPengumumanBaru from "@/hooks/konfigurasi-umum/pengumuman/use-tambah-pengumuman-baru";
 import { X } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormStatus } from "react-dom";
 
 type TambahPengumumanBaruDialogProps = {
     trigger: ReactNode;
@@ -27,18 +25,18 @@ export default function TambahPengumumanBaruDialog({
 }: TambahPengumumanBaruDialogProps) {
     const [dialogOpen, setDialogOpen] = useState(false);
     const { setOpen } = useCustomDialogLoadingContext();
-    const [response, action] = useFormState(tambahPengumumanBaru, undefined);
-
-    const { form, handleChange } = useTambahPengumumanBaru();
+    const { form, handleChange, pengumumanMutation } =
+        useTambahPengumumanBaru();
 
     // check if there's response, then hide loading dialog
     useEffect(() => {
-        if (response) setOpen(false);
+        setOpen(pengumumanMutation.isPending);
 
-        if (response?.status === 200) {
-            console.log("Success");
+        // if success, close dialog
+        if (pengumumanMutation.isSuccess) {
+            setDialogOpen(false);
         }
-    }, [response]);
+    }, [pengumumanMutation.isPending, pengumumanMutation.isSuccess]);
 
     return (
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -61,10 +59,7 @@ export default function TambahPengumumanBaruDialog({
                         />
                     </Row>
                 </DialogTitle>
-                <form
-                    className="w-full rounded-xl bg-white px-4 pb-4"
-                    action={action}
-                >
+                <form className="w-full rounded-xl bg-white px-4 pb-4">
                     <Column className="gap-6">
                         <Row className="w-full gap-4">
                             <CustomTextfield
@@ -75,7 +70,6 @@ export default function TambahPengumumanBaruDialog({
                                 id="tanggal"
                                 name="tanggal"
                                 className="basis-1/3"
-                                placeholder=""
                             />
                             <CustomTextfield
                                 label={"Judul"}
@@ -89,15 +83,35 @@ export default function TambahPengumumanBaruDialog({
 
                         <CustomTextfield
                             label={"Isi Pengumuman"}
-                            id="isiPengumuman"
-                            name="isiPengumuman"
+                            id="pengumuman"
+                            name="pengumuman"
                             variant="area"
-                            value={form.isiPengumuman}
+                            value={form.pengumuman}
+                            onChange={handleChange}
+                        />
+
+                        <CustomTextfield
+                            label={"Isi Lampiran"}
+                            id="lampiran"
+                            name="lampiran"
+                            value={form.lampiran}
                             onChange={handleChange}
                         />
 
                         <Row className="gap-4">
-                            <PerbaruiButton />
+                            <button
+                                type="submit"
+                                disabled={pengumumanMutation.isPending}
+                                aria-disabled={pengumumanMutation.isPending}
+                                onClick={(e) => {
+                                    e.preventDefault();
+
+                                    pengumumanMutation.mutate();
+                                }}
+                                className="poppins600-14 h-[53px] rounded-[8px] bg-[#9747FF] px-6 text-white"
+                            >
+                                Perbaharui
+                            </button>
                             <CustomButton
                                 onClick={(e) => {
                                     e.preventDefault();
@@ -115,25 +129,5 @@ export default function TambahPengumumanBaruDialog({
                 </form>
             </DialogContent>
         </Dialog>
-    );
-}
-
-function PerbaruiButton() {
-    const { setOpen } = useCustomDialogLoadingContext();
-    const { pending } = useFormStatus();
-
-    useEffect(() => {
-        if (pending) {
-            setOpen(true);
-        }
-    }, [pending]);
-
-    return (
-        <button
-            type="submit"
-            className="poppins600-14 h-[53px] rounded-[8px] bg-[#9747FF] px-6 text-white"
-        >
-            Perbaharui
-        </button>
     );
 }

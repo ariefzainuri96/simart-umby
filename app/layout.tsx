@@ -11,6 +11,7 @@ import "./globals.css";
 import ErrorBoundary from "@/components/reusable-components/error-boundary";
 import ReactQueryProvider from "@/components/reusable-components/react-query-provider";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { Toaster } from "@/components/ui/toaster";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -53,6 +54,7 @@ export default function RootLayout({
                         </SheetSidebarProvider>
                     </ErrorBoundary>
                 </ReactQueryProvider>
+                <Toaster />
             </body>
         </html>
     );

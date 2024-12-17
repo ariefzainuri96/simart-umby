@@ -6,6 +6,7 @@ import { db } from "@/db/db";
 import { eq } from "drizzle-orm";
 import { UserTable } from "@/db/schema/user-table";
 import bcrypt from "bcryptjs";
+import { CURRENT_USER } from "./constant";
 
 // const bcrypt = require("bcryptjs");
 const secretKey = process.env.SECRET_KEY;
@@ -52,11 +53,12 @@ async function encrypt(payload: any, expires: Date) {
         .sign(key);
 }
 
-export async function decrypt(input: string): Promise<any> {
+export async function decrypt<T>(input: string): Promise<any> {
     const { payload } = await jwtVerify(input, key, {
         algorithms: ["HS256"],
     });
-    return payload;
+
+    return payload as T;
 }
 
 async function setAuthCookies(email: string, userId: string) {
@@ -66,9 +68,9 @@ async function setAuthCookies(email: string, userId: string) {
     };
     // 60000 millisecond => 1 minute
     // 60 => how many minutes
-    const expires = new Date(Date.now() + 1 * 60000);
+    const expires = new Date(Date.now() + 60 * 60000);
     const session = await encrypt(user, expires);
-    cookies().set("currentUser", session, { expires, httpOnly: true }); // httpOnly true -> we can only get cookies in server side
+    cookies().set(CURRENT_USER, session, { expires, httpOnly: true }); // httpOnly true -> we can only get cookies in server side
 }
 
 async function setCookies(

@@ -3,13 +3,11 @@ import Image from "next/image";
 import React from "react";
 import { twMerge } from "tailwind-merge";
 import icDelete from "@/public/icons/ic-delete.svg";
-import {
-    getPengumumanById,
-    TPengumumanTable,
-} from "@/actions/pengumuman-actions";
+import { getPengumumanById } from "@/actions/pengumuman-actions";
+import { TPengumumanTable } from "@/db/schema/pengumuman-table";
 
 const PengumumanDataTable = async () => {
-    const pengumumanList: TPengumumanTable[] = await getPengumumanById();
+    const pengumumanList = await getPengumumanById();
 
     const IcEdit = () => {
         return (
@@ -27,6 +25,10 @@ const PengumumanDataTable = async () => {
             </svg>
         );
     };
+
+    if (pengumumanList === undefined) {
+        return <span>Error</span>;
+    }
 
     return (
         <div className="mt-4 w-full overflow-hidden rounded-[8px] border border-[#EFEFEF]">

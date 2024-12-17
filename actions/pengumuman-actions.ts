@@ -1,22 +1,38 @@
 "use server";
 
 import { db } from "@/db/db";
-import { PengumumanTable } from "@/db/schema/pengumuman-table";
+import {
+    PengumumanTable,
+    TPengumumanTable,
+    TPengumumanTableInsert,
+} from "@/db/schema/pengumuman-table";
 import { decrypt } from "@/lib/auth";
+import { CURRENT_USER } from "@/lib/constant";
+import { TCurrentUser } from "@/model/current-user";
+import { getCookie } from "cookies-next";
 import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 
-export type TPengumumanTable = typeof PengumumanTable.$inferSelect;
-
-export async function tambahPengumumanBaru(prevState: any, data: FormData) {
+export async function tambahPengumumanBaru(
+    form: TPengumumanTableInsert,
+): Promise<TPengumumanTable | undefined> {
     try {
-        console.log("Data: ", data);
+        const userData: TCurrentUser = await decrypt(
+            getCookie(CURRENT_USER, { cookies })?.toString() ?? "",
+        );
 
-        return { status: 200 };
+        form.authorId = Number(userData.userId);
+        const data = await db.insert(PengumumanTable).values(form).returning();
+
+        revalidatePath("/konfigurasi-umum/pengumuman");
+
+        return data[0];
     } catch (error) {
-        console.log("Error happen: ", error);
-
-        return { status: 400 };
+        if (error instanceof Error) {
+            console.log("Error happen: ", error.message);
+            throw error;
+        }
     }
 }
 
@@ -38,16 +54,20 @@ export async function getAllPengumuman(
     }
 }
 
-export async function getPengumumanById(): Promise<TPengumumanTable[]> {
+export async function getPengumumanById(): Promise<
+    TPengumumanTable[] | undefined
+> {
     try {
-        const user = await decrypt(cookies().get("currentUser")?.value ?? "");
+        const user: TCurrentUser = await decrypt(
+            cookies().get(CURRENT_USER)?.value ?? "",
+        );
 
         const data = await db.query.PengumumanTable.findMany({
-            where: eq(PengumumanTable.authorId, user.userId),
+            where: eq(PengumumanTable.authorId, Number(user.userId)),
         });
 
         return data;
     } catch (error) {
-        return [];
+        console.log(error);
     }
 }

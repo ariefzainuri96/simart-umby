@@ -12,3 +12,6 @@ export const PengumumanTable = pgTable("pengumuman", {
         .references(() => UserTable.id)
         .notNull(),
 });
+
+export type TPengumumanTable = typeof PengumumanTable.$inferSelect;
+export type TPengumumanTableInsert = typeof PengumumanTable.$inferInsert;

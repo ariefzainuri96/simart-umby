@@ -5,6 +5,7 @@ import {
     PengumumanTable,
     TPengumumanTable,
     TPengumumanTableInsert,
+    ZTambahPengumumanBaruModelSchema,
 } from "@/db/schema/pengumuman-table";
 import { decrypt } from "@/lib/auth";
 import { CURRENT_USER } from "@/lib/constant";
@@ -33,6 +34,58 @@ export async function tambahPengumumanBaru(
             console.log("Error happen: ", error.message);
             throw error;
         }
+    }
+}
+
+export async function serverTambahPengumumanBaru(
+    previousState: any,
+    formData: FormData,
+) {
+    try {
+        const userData: TCurrentUser = await decrypt(
+            getCookie(CURRENT_USER, { cookies })?.toString() ?? "",
+        );
+
+        const pengumumanForm = Object.fromEntries(
+            formData.entries(),
+        ) as unknown as TPengumumanTableInsert;
+
+        pengumumanForm.authorId = Number(userData.userId);
+
+        const validationResult =
+            ZTambahPengumumanBaruModelSchema.safeParse(pengumumanForm);
+
+        if (!validationResult.success) {
+            const { errors } = validationResult.error;
+
+            return {
+                status: 300,
+                errors: errors.map((element) => {
+                    return {
+                        message: element.message,
+                        name: element.path,
+                    };
+                }),
+            };
+        }
+
+        await db.insert(PengumumanTable).values(pengumumanForm).returning();
+
+        revalidatePath("/konfigurasi-umum/pengumuman");
+
+        return {
+            status: 200,
+            message: "Pengumuman baru berhasil dibuat",
+        };
+    } catch (error) {
+        if (error instanceof Error) {
+            console.log("Error happen: ", error.message);
+        }
+
+        return {
+            status: 400,
+            message: "Gagal membuat pengumuman baru",
+        };
     }
 }
 

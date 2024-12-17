@@ -1,5 +1,6 @@
 "use client";
 
+import { serverTambahPengumumanBaru } from "@/actions/pengumuman-actions";
 import Column from "@/components/reusable-components/column";
 import CustomButton from "@/components/reusable-components/custom-button";
 import { useCustomDialogLoadingContext } from "@/components/reusable-components/custom-dialog-loading/custom-dialog-loading-provider";
@@ -11,32 +12,53 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import useTambahPengumumanBaru from "@/hooks/konfigurasi-umum/pengumuman/use-tambah-pengumuman-baru";
+import { useToast } from "@/hooks/use-toast";
 import { X } from "lucide-react";
 import { ReactNode, useEffect, useState } from "react";
-import { useFormStatus } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 
 type TambahPengumumanBaruDialogProps = {
     trigger: ReactNode;
+    onResetDialog: () => void;
 };
 
 export default function TambahPengumumanBaruDialog({
     trigger,
+    onResetDialog,
 }: TambahPengumumanBaruDialogProps) {
+    const { toast } = useToast();
     const [dialogOpen, setDialogOpen] = useState(false);
-    const { setOpen } = useCustomDialogLoadingContext();
-    const { form, handleChange, pengumumanMutation } =
-        useTambahPengumumanBaru();
+    const { setOpen: setDialogLoadingOpen } = useCustomDialogLoadingContext();
+    const [response, action] = useFormState(serverTambahPengumumanBaru, null);
 
-    // check if there's response, then hide loading dialog
     useEffect(() => {
-        setOpen(pengumumanMutation.isPending);
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === "Escape") onResetDialog();
+        };
 
-        // if success, close dialog
-        if (pengumumanMutation.isSuccess) {
+        window.addEventListener("keydown", handleKeyDown);
+
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, []);
+
+    useEffect(() => {
+        if (response) setDialogLoadingOpen(false);
+
+        if (response?.status === 200) {
             setDialogOpen(false);
+
+            toast({
+                title: "Pengumuman Baru",
+                description: "Berhasil membuat pengumuman baru!",
+            });
+        } else if (response?.status === 400) {
+            toast({
+                title: "Error!",
+                description: "Gagal membuat pengumuman baru!",
+                variant: "destructive",
+            });
         }
-    }, [pengumumanMutation.isPending, pengumumanMutation.isSuccess]);
+    }, [response]);
 
     return (
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
@@ -55,29 +77,41 @@ export default function TambahPengumumanBaruDialog({
                             size={20}
                             className="cursor-pointer"
                             color="#fff"
-                            onClick={() => setDialogOpen(false)}
+                            onClick={() => {
+                                onResetDialog();
+                                setDialogOpen(false);
+                            }}
                         />
                     </Row>
                 </DialogTitle>
-                <form className="w-full rounded-xl bg-white px-4 pb-4">
+                <form
+                    action={action}
+                    className="w-full rounded-xl bg-white px-4 pb-4"
+                >
                     <Column className="gap-6">
-                        <Row className="w-full gap-4">
+                        <Row className="w-full items-start gap-4">
                             <CustomTextfield
                                 label={"Tanggal"}
                                 type="date"
-                                value={form.tanggal}
-                                onChange={handleChange}
                                 id="tanggal"
                                 name="tanggal"
                                 className="basis-1/3"
+                                error={
+                                    (response?.errors ?? []).find((element) =>
+                                        element.name.includes("tanggal"),
+                                    )?.message
+                                }
                             />
                             <CustomTextfield
                                 label={"Judul"}
                                 id="judul"
                                 name="judul"
                                 className="basis-2/3"
-                                value={form.judul}
-                                onChange={handleChange}
+                                error={
+                                    (response?.errors ?? []).find((element) =>
+                                        element.name.includes("judul"),
+                                    )?.message
+                                }
                             />
                         </Row>
 
@@ -86,36 +120,31 @@ export default function TambahPengumumanBaruDialog({
                             id="pengumuman"
                             name="pengumuman"
                             variant="area"
-                            value={form.pengumuman}
-                            onChange={handleChange}
+                            error={
+                                (response?.errors ?? []).find((element) =>
+                                    element.name.includes("pengumuman"),
+                                )?.message
+                            }
                         />
 
                         <CustomTextfield
                             label={"Isi Lampiran"}
                             id="lampiran"
                             name="lampiran"
-                            value={form.lampiran}
-                            onChange={handleChange}
+                            error={
+                                (response?.errors ?? []).find((element) =>
+                                    element.name.includes("lampiran"),
+                                )?.message
+                            }
                         />
 
                         <Row className="gap-4">
-                            <button
-                                type="submit"
-                                disabled={pengumumanMutation.isPending}
-                                aria-disabled={pengumumanMutation.isPending}
-                                onClick={(e) => {
-                                    e.preventDefault();
-
-                                    pengumumanMutation.mutate();
-                                }}
-                                className="poppins600-14 h-[53px] rounded-[8px] bg-[#9747FF] px-6 text-white"
-                            >
-                                Perbaharui
-                            </button>
+                            <ButtonPerbarui />
                             <CustomButton
                                 onClick={(e) => {
                                     e.preventDefault();
 
+                                    onResetDialog();
                                     setDialogOpen(false);
                                 }}
                                 title={"Batalkan"}
@@ -131,3 +160,23 @@ export default function TambahPengumumanBaruDialog({
         </Dialog>
     );
 }
+
+const ButtonPerbarui = () => {
+    const { pending } = useFormStatus();
+    const { setOpen } = useCustomDialogLoadingContext();
+
+    useEffect(() => {
+        if (pending) setOpen(true);
+    }, [pending]);
+
+    return (
+        <button
+            type="submit"
+            disabled={pending}
+            aria-disabled={pending}
+            className="poppins600-14 h-[53px] rounded-[8px] bg-[#9747FF] px-6 text-white"
+        >
+            Perbaharui
+        </button>
+    );
+};

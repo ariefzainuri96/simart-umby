@@ -1,6 +1,6 @@
 import Breadcrumbs from "@/components/reusable-components/breadcrumbs";
 import Column from "@/components/reusable-components/column";
-import PengumumanAction from "@/components/page-components/konfigurasi-umum/pengumuman/section/action";
+import PengumumanAction from "@/components/page-components/konfigurasi-umum/pengumuman/section/pengumuman-action";
 import PengumumanDataTable from "@/components/page-components/konfigurasi-umum/pengumuman/section/pengumuman-data-table";
 import { Metadata } from "next";
 import { Suspense } from "react";

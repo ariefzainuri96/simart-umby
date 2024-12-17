@@ -1,6 +1,6 @@
 import { pgTable, serial, timestamp, varchar } from "drizzle-orm/pg-core";
 import { UserTable } from "./user-table";
-import { relations } from "drizzle-orm";
+import { z } from "zod";
 
 export const PengumumanTable = pgTable("pengumuman", {
     id: serial("id").primaryKey(),
@@ -15,3 +15,11 @@ export const PengumumanTable = pgTable("pengumuman", {
 
 export type TPengumumanTable = typeof PengumumanTable.$inferSelect;
 export type TPengumumanTableInsert = typeof PengumumanTable.$inferInsert;
+
+export const ZTambahPengumumanBaruModelSchema = z.object({
+    tanggal: z.string().trim().min(1, { message: "Tanggal is required" }),
+    judul: z.string().trim().min(1, { message: "Judul is required" }),
+    pengumuman: z.string().trim().min(1, { message: "Pengumuman is required" }),
+    lampiran: z.string().optional(),
+    authorId: z.number().min(1, { message: "AuthorId is required" }),
+});

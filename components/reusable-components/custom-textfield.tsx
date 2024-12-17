@@ -2,12 +2,15 @@
 
 import React, { ComponentPropsWithoutRef, ReactNode, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import Column from "./column";
+import Row from "./row";
 
 type TextFieldProps = {
     label: string;
     className?: string;
     trailing?: ReactNode;
     variant?: "area" | "input";
+    error?: string;
 } & ComponentPropsWithoutRef<"input"> &
     ComponentPropsWithoutRef<"textarea">;
 
@@ -16,6 +19,7 @@ export default function CustomTextfield({
     className,
     trailing,
     variant = "input",
+    error,
     ...props
 }: TextFieldProps) {
     const [isFocused, setIsFocused] = useState(false);
@@ -40,67 +44,74 @@ export default function CustomTextfield({
     };
 
     return (
-        <div className={twMerge("relative w-full", className)}>
-            {/* Label */}
-            <label
-                htmlFor={props.id}
-                className={`absolute left-6 cursor-text font-medium transition-all duration-150 ${
-                    isFocused
-                        ? "top-[-10px] bg-white px-1 text-sm text-[#18469C]"
-                        : isFocused && (!isEmpty || props.value)
-                          ? "top-[-10px] bg-white px-1 text-sm text-[#18469C]"
-                          : !isFocused && (!isEmpty || props.value)
-                            ? "top-[-10px] bg-white px-1 text-sm text-[#BFBFBF]"
-                            : "top-3.5 text-[1rem] text-[#BFBFBF]"
-                }`}
-            >
-                {label}
-            </label>
+        <Column className={twMerge("w-full", className)}>
+            <div className="relative w-full">
+                {/* Label */}
+                <label
+                    htmlFor={props.id}
+                    className={`absolute left-6 cursor-text font-medium transition-all duration-150 ${
+                        isFocused
+                            ? "top-[-10px] bg-white px-1 text-sm text-[#18469C]"
+                            : isFocused && (!isEmpty || props.value)
+                              ? "top-[-10px] bg-white px-1 text-sm text-[#18469C]"
+                              : !isFocused && (!isEmpty || props.value)
+                                ? "top-[-10px] bg-white px-1 text-sm text-[#BFBFBF]"
+                                : "top-3.5 text-[1rem] text-[#BFBFBF]"
+                    }`}
+                >
+                    {label}
+                </label>
 
-            {/* Input */}
-            <div className="flex flex-row items-center">
-                {variant === "input" && (
-                    <input
-                        onMouseEnter={() => setIsHovered(true)}
-                        onMouseLeave={() => setIsHovered(false)}
-                        onFocus={() => setIsFocused(true)}
-                        onBlur={() => setIsFocused(false)}
-                        onChange={handleInputChange}
-                        className={twMerge(
-                            `poppins500-16 h-[56px] w-full rounded-md border px-6 py-2 transition-colors ${
-                                isFocused || isHovered
-                                    ? "border-[#18469C]"
-                                    : "border-[#BFBFBF]"
-                            }
+                {/* Input */}
+                <Row>
+                    {variant === "input" && (
+                        <input
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                            onFocus={() => setIsFocused(true)}
+                            onBlur={() => setIsFocused(false)}
+                            onChange={handleInputChange}
+                            className={twMerge(
+                                `poppins500-16 h-[56px] w-full rounded-md border px-6 py-2 transition-colors ${
+                                    isFocused || isHovered
+                                        ? "border-[#18469C]"
+                                        : "border-[#BFBFBF]"
+                                }
            duration-300 focus:outline-none`,
-                            trailing &&
-                                "flex-1 rounded-br-none rounded-tr-none",
-                        )}
-                        {...props}
-                    />
-                )}
-                {variant === "area" && (
-                    <textarea
-                        onMouseEnter={() => setIsHovered(true)}
-                        onMouseLeave={() => setIsHovered(false)}
-                        onFocus={() => setIsFocused(true)}
-                        onBlur={() => setIsFocused(false)}
-                        onChange={handleAreaChange}
-                        className={twMerge(
-                            `poppins500-16 w-full rounded-md border px-6 py-4 transition-colors ${
-                                isFocused || isHovered
-                                    ? "border-[#18469C]"
-                                    : "border-[#BFBFBF]"
-                            }
+                                trailing &&
+                                    "flex-1 rounded-br-none rounded-tr-none",
+                            )}
+                            {...props}
+                        />
+                    )}
+                    {variant === "area" && (
+                        <textarea
+                            onMouseEnter={() => setIsHovered(true)}
+                            onMouseLeave={() => setIsHovered(false)}
+                            onFocus={() => setIsFocused(true)}
+                            onBlur={() => setIsFocused(false)}
+                            onChange={handleAreaChange}
+                            className={twMerge(
+                                `poppins500-16 w-full rounded-md border px-6 py-4 transition-colors ${
+                                    isFocused || isHovered
+                                        ? "border-[#18469C]"
+                                        : "border-[#BFBFBF]"
+                                }
            duration-300 focus:outline-none`,
-                            trailing &&
-                                "flex-1 rounded-br-none rounded-tr-none",
-                        )}
-                        {...props}
-                    />
-                )}
-                {trailing}
+                                trailing &&
+                                    "flex-1 rounded-br-none rounded-tr-none",
+                            )}
+                            {...props}
+                        />
+                    )}
+                    {trailing}
+                </Row>
             </div>
-        </div>
+            {error && (
+                <span className="poppins400-12 mt-1 text-[#FF5D5D]">
+                    {error}
+                </span>
+            )}
+        </Column>
     );
 }

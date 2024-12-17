@@ -22,16 +22,6 @@ const Login = () => {
             </div>
             {/* right side */}
             <div className="hidden lg:block lg:basis-2/3">
-                {/* <Column>
-                    <TextClone />
-                    <TestCloneElement>
-                        <TextClone />
-                        <span>asd</span>
-                    </TestCloneElement>
-                </Column> */}
-                {/* <Announcement /> */}
-                {/* <AnnouncementList />
-                </Announcement> */}
                 <Announcement />
             </div>
         </div>

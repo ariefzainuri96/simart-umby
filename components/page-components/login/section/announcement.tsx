@@ -4,20 +4,6 @@ import SplashBackground from "@/public/images/splash-background.png";
 import { AnnouncementList } from "./announcement-list";
 
 export default function Announcement() {
-    // const [refreshKey, setRefreshKey] = useState(1);
-
-    // const refreshAnnouncements = () => setRefreshKey((prev) => prev + 1);
-
-    // const childrenWithProps = Children.map(children, (child) => {
-    //     if (isValidElement(child) && typeof child.type !== "string") {
-    //         return cloneElement(child as React.ReactElement<any>, {
-    //             key: refreshKey,
-    //         });
-    //     }
-
-    //     return child;
-    // });
-
     return (
         <div className="relative h-full w-full">
             <div className="relative z-0 h-full w-full">

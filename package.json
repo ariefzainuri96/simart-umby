@@ -39,7 +39,6 @@
     "postgres": "^3.4.4",
     "react": "^18",
     "react-dom": "^18",
-    "react-error-boundary": "^4.1.2",
     "sharp": "^0.33.5",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7",
@@ -47,7 +46,6 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
-    "@types/bcrypt": "^5.0.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/react": "^18",

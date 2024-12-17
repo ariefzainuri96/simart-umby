@@ -65,7 +65,8 @@ async function setAuthCookies(email: string, userId: string) {
         userId: userId,
     };
     // 60000 millisecond => 1 minute
-    const expires = new Date(Date.now() + 60 * 60000);
+    // 60 => how many minutes
+    const expires = new Date(Date.now() + 1 * 60000);
     const session = await encrypt(user, expires);
     cookies().set("currentUser", session, { expires, httpOnly: true }); // httpOnly true -> we can only get cookies in server side
 }

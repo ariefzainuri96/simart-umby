@@ -1,6 +1,5 @@
 "use client";
 
-import { serverTambahPengumumanBaru } from "@/actions/pengumuman-actions";
 import Column from "@/components/reusable-components/column";
 import CustomButton from "@/components/reusable-components/custom-button";
 import { useCustomDialogLoadingContext } from "@/components/reusable-components/custom-dialog-loading/custom-dialog-loading-provider";
@@ -12,10 +11,10 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
-import { useToast } from "@/hooks/use-toast";
+import useTambahPengumumanBaru from "@/hooks/konfigurasi-umum/pengumuman/use-tambah-pengumuman-baru";
 import { X } from "lucide-react";
-import { ReactNode, useEffect, useState } from "react";
-import { useFormState, useFormStatus } from "react-dom";
+import { ReactNode, useEffect } from "react";
+import { useFormStatus } from "react-dom";
 
 type TambahPengumumanBaruDialogProps = {
     trigger: ReactNode;
@@ -26,39 +25,8 @@ export default function TambahPengumumanBaruDialog({
     trigger,
     onResetDialog,
 }: TambahPengumumanBaruDialogProps) {
-    const { toast } = useToast();
-    const [dialogOpen, setDialogOpen] = useState(false);
-    const { setOpen: setDialogLoadingOpen } = useCustomDialogLoadingContext();
-    const [response, action] = useFormState(serverTambahPengumumanBaru, null);
-
-    useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === "Escape") onResetDialog();
-        };
-
-        window.addEventListener("keydown", handleKeyDown);
-
-        return () => window.removeEventListener("keydown", handleKeyDown);
-    }, []);
-
-    useEffect(() => {
-        if (response) setDialogLoadingOpen(false);
-
-        if (response?.status === 200) {
-            setDialogOpen(false);
-
-            toast({
-                title: "Pengumuman Baru",
-                description: "Berhasil membuat pengumuman baru!",
-            });
-        } else if (response?.status === 400) {
-            toast({
-                title: "Error!",
-                description: "Gagal membuat pengumuman baru!",
-                variant: "destructive",
-            });
-        }
-    }, [response]);
+    const { setDialogOpen, action, response, dialogOpen } =
+        useTambahPengumumanBaru(onResetDialog);
 
     return (
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>

@@ -5,7 +5,7 @@ import {
     PengumumanTable,
     TPengumumanTable,
     TPengumumanTableInsert,
-    ZTambahPengumumanBaruModelSchema,
+    ZTambahPengumumanTableInsert,
 } from "@/db/schema/pengumuman-table";
 import { decrypt } from "@/lib/auth";
 import { CURRENT_USER } from "@/lib/constant";
@@ -53,7 +53,7 @@ export async function serverTambahPengumumanBaru(
         pengumumanForm.authorId = Number(userData.userId);
 
         const validationResult =
-            ZTambahPengumumanBaruModelSchema.safeParse(pengumumanForm);
+            ZTambahPengumumanTableInsert.safeParse(pengumumanForm);
 
         if (!validationResult.success) {
             const { errors } = validationResult.error;

@@ -16,7 +16,7 @@ export const PengumumanTable = pgTable("pengumuman", {
 export type TPengumumanTable = typeof PengumumanTable.$inferSelect;
 export type TPengumumanTableInsert = typeof PengumumanTable.$inferInsert;
 
-export const ZTambahPengumumanBaruModelSchema = z.object({
+export const ZTambahPengumumanTableInsert = z.object({
     tanggal: z.string().trim().min(1, { message: "Tanggal is required" }),
     judul: z.string().trim().min(1, { message: "Judul is required" }),
     pengumuman: z.string().trim().min(1, { message: "Pengumuman is required" }),

@@ -11,8 +11,8 @@ type CustomFilePickerProps = {
     label: string;
     image?: string;
     className?: string;
-    onReset?: () => void;
-    onImageChange?: (event: ChangeEvent<HTMLInputElement>) => void;
+    onReset: () => void;
+    onImageChange: (event: ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function CustomFilePicker({
@@ -72,7 +72,7 @@ export default function CustomFilePicker({
                         {label}
                     </label>
                     <div
-                        onClick={onReset}
+                        onClick={() => onReset()}
                         className="absolute right-[-8px] top-[-8px] flex size-[1.375rem] cursor-pointer items-center justify-center rounded-full bg-[#FF5B5B]"
                     >
                         <X size={16} color="#fff" />

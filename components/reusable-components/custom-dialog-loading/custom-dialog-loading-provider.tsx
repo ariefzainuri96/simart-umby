@@ -4,10 +4,7 @@ import React, { createContext, ReactNode, useContext, useState } from "react";
 import CustomDialogLoading from "./custom-dialog-loading";
 
 // Define the context type
-type CustomDialogLoadingContextType = {
-    open: boolean;
-    setOpen: (open: boolean) => void;
-};
+type CustomDialogLoadingContextType = ReturnType<typeof useCustomDialogLoading>;
 
 // Create the context with an initial value of `undefined`
 const CustomDialogLoadingContext =
@@ -32,12 +29,18 @@ export default function CustomDialogLoadingProvider({
 }: {
     children: ReactNode;
 }) {
-    const [open, setOpen] = useState(false);
+    const hooks = useCustomDialogLoading();
 
     return (
-        <CustomDialogLoadingContext.Provider value={{ open, setOpen }}>
+        <CustomDialogLoadingContext.Provider value={hooks}>
             <CustomDialogLoading />
             {children}
         </CustomDialogLoadingContext.Provider>
     );
+}
+
+function useCustomDialogLoading() {
+    const [open, setOpen] = useState(false);
+
+    return { open, setOpen } as const;
 }

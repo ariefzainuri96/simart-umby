@@ -4,12 +4,7 @@ import React, { createContext, ReactNode, useContext, useState } from "react";
 import CustomDialogError from "./custom-dialog-error";
 
 // Define the context type
-type CustomDialogErrorContextType = {
-    open: boolean;
-    setOpen: (open: boolean) => void;
-    error: string;
-    setError: (error: string) => void;
-};
+type CustomDialogErrorContextType = ReturnType<typeof useCustomDialogError>;
 
 // Create the context with an initial value of `undefined`
 const CustomDialogErrorContext =
@@ -34,15 +29,19 @@ export default function CustomDialogErrorProvider({
 }: {
     children: ReactNode;
 }) {
-    const [open, setOpen] = useState(false);
-    const [error, setError] = useState("");
+    const hooks = useCustomDialogError();
 
     return (
-        <CustomDialogErrorContext.Provider
-            value={{ open, setOpen, error, setError }}
-        >
+        <CustomDialogErrorContext.Provider value={hooks}>
             <CustomDialogError />
             {children}
         </CustomDialogErrorContext.Provider>
     );
+}
+
+function useCustomDialogError() {
+    const [open, setOpen] = useState(false);
+    const [error, setError] = useState("");
+
+    return { open, setOpen, error, setError } as const;
 }

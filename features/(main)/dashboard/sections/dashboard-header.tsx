@@ -30,22 +30,12 @@ const DashboardHeader = () => {
             </span>
             <Image
                 src={icSearch}
-                width={24}
-                height={24}
                 alt={"ic-search"}
                 className="cursor-pointer"
             />
-            <Image
-                src={icClock}
-                width={24}
-                height={24}
-                alt={"ic-clock"}
-                className="cursor-pointer"
-            />
+            <Image src={icClock} alt={"ic-clock"} className="cursor-pointer" />
             <Image
                 src={icNotification}
-                width={24}
-                height={24}
                 alt={"ic-bell"}
                 color="#000"
                 className="cursor-pointer text-bluePrimary"

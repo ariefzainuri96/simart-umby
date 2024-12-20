@@ -12,8 +12,8 @@ export const metadata: Metadata = {
 
 const Pengumumanpage = () => {
     return (
-        <div className="overflow-y-auto">
-            <Column className="p-6">
+        <div className="w-full overflow-y-auto">
+            <Column className="w-full p-6">
                 <Breadcrumbs />
                 <PengumumanAction />
                 <Suspense

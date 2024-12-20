@@ -1,11 +1,13 @@
 "use client";
 
-import React, { createContext, ReactNode, useContext } from "react";
-import useCustomDialog from "./use-custom-dialog";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 import CustomDialogLoading from "./custom-dialog-loading";
 
 // Define the context type
-type CustomDialogLoadingContextType = ReturnType<typeof useCustomDialog>;
+type CustomDialogLoadingContextType = {
+    open: boolean;
+    setOpen: (open: boolean) => void;
+};
 
 // Create the context with an initial value of `undefined`
 const CustomDialogLoadingContext =
@@ -30,10 +32,10 @@ export default function CustomDialogLoadingProvider({
 }: {
     children: ReactNode;
 }) {
-    const customDialog = useCustomDialog();
+    const [open, setOpen] = useState(false);
 
     return (
-        <CustomDialogLoadingContext.Provider value={customDialog}>
+        <CustomDialogLoadingContext.Provider value={{ open, setOpen }}>
             <CustomDialogLoading />
             {children}
         </CustomDialogLoadingContext.Provider>

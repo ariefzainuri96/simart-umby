@@ -36,8 +36,6 @@ const Breadcrumbs = () => {
 
                         router.replace("/");
                     }}
-                    width={16}
-                    height={16}
                     src={icHome}
                     alt={"Home"}
                     className="cursor-pointer"

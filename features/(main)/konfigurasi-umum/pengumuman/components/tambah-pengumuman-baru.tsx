@@ -1,5 +1,3 @@
-"use client";
-
 import Column from "@/components/reusable-components/column";
 import CustomButton from "@/components/reusable-components/custom-button";
 import { useCustomDialogLoadingContext } from "@/components/reusable-components/custom-dialog-loading/custom-dialog-loading-provider";
@@ -8,6 +6,7 @@ import Row from "@/components/reusable-components/row";
 import {
     Dialog,
     DialogContent,
+    DialogDescription,
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog";
@@ -52,6 +51,7 @@ export default function TambahPengumumanBaruDialog({
                         />
                     </Row>
                 </DialogTitle>
+                <DialogDescription className="hidden"></DialogDescription>
                 <form
                     action={action}
                     className="w-full rounded-xl bg-white px-4 pb-4"

@@ -4,7 +4,6 @@ import React from "react";
 import { twMerge } from "tailwind-merge";
 import icDelete from "@/public/icons/ic-delete.svg";
 import { getPengumumanById } from "@/features/(main)/konfigurasi-umum/pengumuman/actions/pengumuman-actions";
-import { TPengumumanTable } from "@/db/schema/pengumuman-table";
 
 const PengumumanDataTable = async () => {
     const pengumumanList = await getPengumumanById();
@@ -68,8 +67,6 @@ const PengumumanDataTable = async () => {
                                         <div className="bg-icon bg-[#FF5D5D4D]">
                                             <Image
                                                 src={icDelete}
-                                                width={16}
-                                                height={16}
                                                 color="#FF5D5D"
                                                 alt="Edit"
                                             />

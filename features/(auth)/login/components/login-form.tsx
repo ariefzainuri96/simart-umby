@@ -14,7 +14,9 @@ import { useEffect, useState } from "react";
 import { getCookies } from "cookies-next";
 import { useCustomDialogLoadingContext } from "@/components/reusable-components/custom-dialog-loading/custom-dialog-loading-provider";
 import { useRouter } from "next/navigation";
-import { useCustomDialogErrorContext } from "@/components/reusable-components/custom-dialog-error/custom-dialog-loading-provider";
+import { useCustomDialogErrorContext } from "@/components/reusable-components/custom-dialog-error/custom-dialog-error-provider";
+import { AUTH_DATA } from "@/lib/constant";
+import Row from "@/components/reusable-components/row";
 
 const LoginForm = () => {
     const { setOpen: setDialogErrorOpen, setError } =
@@ -29,9 +31,11 @@ const LoginForm = () => {
     // auto fill input
     useEffect(() => {
         async function getAuthData() {
-            const data = await decrypt(
-                getCookies()["authData"]?.toString() ?? "",
-            );
+            const authDataCookies = getCookies()[AUTH_DATA];
+
+            if (!authDataCookies) return;
+
+            const data = await decrypt(getCookies()[AUTH_DATA]!);
 
             if ((data.rememberMe ?? "") === "on") {
                 setRememberMe((data.rememberMe ?? "") === "on");
@@ -55,14 +59,14 @@ const LoginForm = () => {
     }, [response]);
 
     return (
-        <div className="h-full w-full max-w-[600px] overflow-y-auto lg:overflow-y-hidden">
-            <div className="flex h-full w-full flex-col p-4">
+        <div className="h-full w-full max-w-[600px] overflow-y-auto">
+            <div className="flex w-full flex-col p-4">
                 <Image
+                    priority
                     src={UmbyLogo}
                     alt="Umby Logo"
-                    width={162}
-                    height={158}
                     className="self-center"
+                    loading="eager"
                 />
                 <h1 className="mt-[3rem] self-center text-[1.75rem] font-semibold text-bluePrimary">
                     SIMART
@@ -109,19 +113,14 @@ const LoginForm = () => {
                     </div>
                 </form>
                 <div className="hidden lg:block lg:flex-1" />
-                <div className="mb-4 mt-10 flex w-full flex-row items-center gap-4 lg:mt-0">
-                    <Image
-                        src={IcWarning}
-                        alt="warning"
-                        width={41}
-                        height={36}
-                    />
+                <Row className="my-4 w-full gap-4">
+                    <Image src={IcWarning} alt="warning" />
                     <span className="flex-1 text-[0.75rem] text-textSecondary">
                         Untuk alasan keamanan, silahkan logout dan tutup browser
                         Anda setelah selesai menggunakan layanan yang memerlukan
                         otentikasi!
                     </span>
-                </div>
+                </Row>
             </div>
         </div>
     );

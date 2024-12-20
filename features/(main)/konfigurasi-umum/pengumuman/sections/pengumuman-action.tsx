@@ -65,14 +65,7 @@ const PengumumanAction = () => {
                     title="Hapus"
                     variant="outlined"
                     borderColor="#FF5D5D"
-                    Icon={
-                        <Image
-                            src={icDelete}
-                            alt="dekete"
-                            width={16}
-                            height={16}
-                        />
-                    }
+                    Icon={<Image src={icDelete} alt="dekete" />}
                 />
                 <TambahPengumumanBaruTrigger />
             </div>

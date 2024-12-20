@@ -1,4 +1,4 @@
-import React, { ComponentPropsWithoutRef, ComponentPropsWithRef } from "react";
+import React, { ComponentPropsWithoutRef } from "react";
 import Row from "./row";
 import { twMerge } from "tailwind-merge";
 
@@ -14,7 +14,7 @@ type CustomButtonProps = {
     paddingHorizontal?: number;
 } & ComponentPropsWithoutRef<"div">;
 
-const CustomButton = ({
+export default function CustomButton({
     title,
     backgroundColor,
     borderColor,
@@ -25,7 +25,7 @@ const CustomButton = ({
     buttonHeight = 38,
     paddingHorizontal = 16,
     ...props
-}: CustomButtonProps) => {
+}: CustomButtonProps) {
     const filledStyle: React.CSSProperties = {
         backgroundColor: backgroundColor,
         borderColor: borderColor ?? "#00000000",
@@ -46,7 +46,7 @@ const CustomButton = ({
     return (
         <Row
             style={variant === "filled" ? filledStyle : outlinedStyle}
-            className="cursor-pointer items-center rounded-[8px] px-[1rem] hover:bg-slate-50 xl:gap-2"
+            className="cursor-pointer items-center gap-1 rounded-[8px] px-[1rem] hover:bg-slate-50 xl:gap-2"
             {...props}
         >
             {Icon}
@@ -60,6 +60,4 @@ const CustomButton = ({
             </span>
         </Row>
     );
-};
-
-export default CustomButton;
+}

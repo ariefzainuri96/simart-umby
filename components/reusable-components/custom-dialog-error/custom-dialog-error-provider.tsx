@@ -1,11 +1,15 @@
 "use client";
 
-import React, { createContext, ReactNode, useContext } from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 import CustomDialogError from "./custom-dialog-error";
-import useCustomDialogError from "./use-custom-dialog-error";
 
 // Define the context type
-type CustomDialogErrorContextType = ReturnType<typeof useCustomDialogError>;
+type CustomDialogErrorContextType = {
+    open: boolean;
+    setOpen: (open: boolean) => void;
+    error: string;
+    setError: (error: string) => void;
+};
 
 // Create the context with an initial value of `undefined`
 const CustomDialogErrorContext =
@@ -30,10 +34,13 @@ export default function CustomDialogErrorProvider({
 }: {
     children: ReactNode;
 }) {
-    const customDialog = useCustomDialogError();
+    const [open, setOpen] = useState(false);
+    const [error, setError] = useState("");
 
     return (
-        <CustomDialogErrorContext.Provider value={customDialog}>
+        <CustomDialogErrorContext.Provider
+            value={{ open, setOpen, error, setError }}
+        >
             <CustomDialogError />
             {children}
         </CustomDialogErrorContext.Provider>

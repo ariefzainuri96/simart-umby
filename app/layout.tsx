@@ -5,12 +5,13 @@ import { SidebarProvider } from "@/features/(main)/dashboard/sections/sidebar-se
 import DashboardHeader from "@/features/(main)/dashboard/sections/dashboard-header";
 import SidebarSection from "@/features/(main)/dashboard/sections/sidebar-section/sidebar-section";
 import CustomDialogLoadingProvider from "@/components/reusable-components/custom-dialog-loading/custom-dialog-loading-provider";
-import CustomDialogErrorProvider from "@/components/reusable-components/custom-dialog-error/custom-dialog-loading-provider";
-import "./globals.css";
 import ErrorBoundary from "@/components/reusable-components/error-boundary";
 import ReactQueryProvider from "@/components/reusable-components/react-query-provider";
 import { Toaster } from "@/components/ui/toaster";
 import { SheetSidebarProvider } from "@/features/(main)/dashboard/components/sheet-sidebar/sheet-sidebar-provider";
+import Row from "@/components/reusable-components/row";
+import Column from "@/components/reusable-components/column";
+import "./globals.css";
 
 const poppins = Poppins({
     subsets: ["latin"],
@@ -39,15 +40,13 @@ export default function RootLayout({
                         <SheetSidebarProvider>
                             <SidebarProvider>
                                 <CustomDialogLoadingProvider>
-                                    <CustomDialogErrorProvider>
-                                        <div className="flex h-full w-full flex-row overflow-hidden">
-                                            <SidebarSection />
-                                            <div className="flex h-full flex-1 flex-col">
-                                                <DashboardHeader />
-                                                {children}
-                                            </div>
-                                        </div>
-                                    </CustomDialogErrorProvider>
+                                    <Row className="h-full w-full overflow-hidden">
+                                        <SidebarSection />
+                                        <Column className="h-full flex-1">
+                                            <DashboardHeader />
+                                            {children}
+                                        </Column>
+                                    </Row>
                                 </CustomDialogLoadingProvider>
                             </SidebarProvider>
                         </SheetSidebarProvider>

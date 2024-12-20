@@ -6,7 +6,7 @@ import { db } from "@/db/db";
 import { eq } from "drizzle-orm";
 import { UserTable } from "@/db/schema/user-table";
 import bcrypt from "bcryptjs";
-import { CURRENT_USER } from "../../../../lib/constant";
+import { AUTH_DATA, CURRENT_USER } from "../../../../lib/constant";
 
 // const bcrypt = require("bcryptjs");
 const secretKey = process.env.SECRET_KEY;
@@ -26,7 +26,7 @@ export async function authenticate(_: any, formData: FormData) {
         if (user && bcrypt.compareSync(password, user.password)) {
             await setAuthCookies(nis, `${user.id}`);
             await setCookies(
-                "authData",
+                AUTH_DATA,
                 {
                     nis: nis,
                     password: password,

@@ -1,7 +1,7 @@
-import { TPengumumanTable } from "@/actions/pengumuman-actions";
 import React from "react";
 import Column from "./column";
 import { twMerge } from "tailwind-merge";
+import { TPengumumanTable } from "@/db/schema/pengumuman-table";
 
 export const AnnouncementItem = ({
     data,

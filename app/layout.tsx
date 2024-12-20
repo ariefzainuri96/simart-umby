@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import { ReactNode } from "react";
-import { SheetSidebarProvider } from "@/components/page-components/dashboard/components/sheet-sidebar/sheet-sidebar-provider";
-import { SidebarProvider } from "@/components/page-components/dashboard/sections/sidebar-section/sidebar-provider";
-import DashboardHeader from "@/components/page-components/dashboard/sections/dashboard-header";
-import SidebarSection from "@/components/page-components/dashboard/sections/sidebar-section/sidebar-section";
+import { SidebarProvider } from "@/features/(main)/dashboard/sections/sidebar-section/sidebar-provider";
+import DashboardHeader from "@/features/(main)/dashboard/sections/dashboard-header";
+import SidebarSection from "@/features/(main)/dashboard/sections/sidebar-section/sidebar-section";
 import CustomDialogLoadingProvider from "@/components/reusable-components/custom-dialog-loading/custom-dialog-loading-provider";
 import CustomDialogErrorProvider from "@/components/reusable-components/custom-dialog-error/custom-dialog-loading-provider";
 import "./globals.css";
 import ErrorBoundary from "@/components/reusable-components/error-boundary";
 import ReactQueryProvider from "@/components/reusable-components/react-query-provider";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "@/components/ui/toaster";
+import { SheetSidebarProvider } from "@/features/(main)/dashboard/components/sheet-sidebar/sheet-sidebar-provider";
 
 const poppins = Poppins({
     subsets: ["latin"],

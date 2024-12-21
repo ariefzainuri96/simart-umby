@@ -62,9 +62,14 @@ export default function SiteConfiguration() {
                 label={"Logo"}
                 image={form.siteConfiguration?.imgLogo}
                 onReset={() => updateSiteConfiguration("imgLogo", null)}
-                onImageChange={(file) =>
-                    updateSiteConfiguration("imgLogo", file)
-                }
+                onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                        updateSiteConfiguration(
+                            "imgLogo",
+                            URL.createObjectURL(e.target.files[0]),
+                        );
+                    }
+                }}
             />
 
             <CustomFilePicker
@@ -73,9 +78,14 @@ export default function SiteConfiguration() {
                 label={"Multirole"}
                 image={form.siteConfiguration?.imgMultirole}
                 onReset={() => updateSiteConfiguration("imgMultirole", null)}
-                onImageChange={(file) =>
-                    updateSiteConfiguration("imgMultirole", file)
-                }
+                onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                        updateSiteConfiguration(
+                            "imgMultirole",
+                            URL.createObjectURL(e.target.files[0]),
+                        );
+                    }
+                }}
             />
 
             <CustomFilePicker
@@ -84,8 +94,13 @@ export default function SiteConfiguration() {
                 label={"Dokumen"}
                 image={form.siteConfiguration?.imgDokumen}
                 onReset={() => updateSiteConfiguration("imgDokumen", null)}
-                onImageChange={(file) => {
-                    updateSiteConfiguration("imgDokumen", file);
+                onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                        updateSiteConfiguration(
+                            "imgDokumen",
+                            URL.createObjectURL(e.target.files[0]),
+                        );
+                    }
                 }}
             />
 

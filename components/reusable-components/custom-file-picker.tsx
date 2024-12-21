@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef } from "react";
+import { ComponentPropsWithoutRef, useRef } from "react";
 import Row from "./row";
 import Column from "./column";
 import { twMerge } from "tailwind-merge";
@@ -12,16 +12,15 @@ type CustomFilePickerProps = {
     image?: string;
     className?: string;
     onReset: () => void;
-    onImageChange: (file: string) => void;
-};
+} & ComponentPropsWithoutRef<"input">;
 
 export default function CustomFilePicker({
     title,
     label,
     className,
     image,
-    onImageChange,
     onReset,
+    ...props
 }: CustomFilePickerProps) {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -53,14 +52,8 @@ export default function CustomFilePicker({
                 <input
                     ref={fileInputRef}
                     type="file"
-                    onChange={(e) => {
-                        if (e.target.files && e.target.files[0]) {
-                            onImageChange(
-                                URL.createObjectURL(e.target.files[0]),
-                            );
-                        }
-                    }}
                     className="hidden"
+                    {...props}
                 />
             </Row>
             {image && (

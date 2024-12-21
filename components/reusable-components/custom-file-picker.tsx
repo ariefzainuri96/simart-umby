@@ -53,7 +53,7 @@ export default function CustomFilePicker({
                 <input
                     ref={fileInputRef}
                     type="file"
-                    onChange={onImageChange}
+                    onChange={(e) => onImageChange(e)}
                     className="hidden"
                 />
             </Row>

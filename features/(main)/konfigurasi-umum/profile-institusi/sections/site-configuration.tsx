@@ -62,14 +62,9 @@ export default function SiteConfiguration() {
                 label={"Logo"}
                 image={form.siteConfiguration?.imgLogo}
                 onReset={() => updateSiteConfiguration("imgLogo", null)}
-                onImageChange={(event) => {
-                    if (event.target.files && event.target.files[0]) {
-                        updateSiteConfiguration(
-                            "imgLogo",
-                            URL.createObjectURL(event.target.files[0]),
-                        );
-                    }
-                }}
+                onImageChange={(file) =>
+                    updateSiteConfiguration("imgLogo", file)
+                }
             />
 
             <CustomFilePicker
@@ -78,14 +73,9 @@ export default function SiteConfiguration() {
                 label={"Multirole"}
                 image={form.siteConfiguration?.imgMultirole}
                 onReset={() => updateSiteConfiguration("imgMultirole", null)}
-                onImageChange={(event) => {
-                    if (event.target.files && event.target.files[0]) {
-                        updateSiteConfiguration(
-                            "imgMultirole",
-                            URL.createObjectURL(event.target.files[0]),
-                        );
-                    }
-                }}
+                onImageChange={(file) =>
+                    updateSiteConfiguration("imgMultirole", file)
+                }
             />
 
             <CustomFilePicker
@@ -94,13 +84,8 @@ export default function SiteConfiguration() {
                 label={"Dokumen"}
                 image={form.siteConfiguration?.imgDokumen}
                 onReset={() => updateSiteConfiguration("imgDokumen", null)}
-                onImageChange={(event) => {
-                    if (event.target.files && event.target.files[0]) {
-                        updateSiteConfiguration(
-                            "imgDokumen",
-                            URL.createObjectURL(event.target.files[0]),
-                        );
-                    }
+                onImageChange={(file) => {
+                    updateSiteConfiguration("imgDokumen", file);
                 }}
             />
 

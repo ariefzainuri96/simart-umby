@@ -11,7 +11,7 @@ export type ProfileInstitusiForm = {
     siteConfiguration?: SiteConfiguration;
 };
 
-type SiteConfiguration = {
+export type SiteConfiguration = {
     name?: string;
     email?: string;
     phone?: string;

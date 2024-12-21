@@ -12,7 +12,7 @@ type CustomFilePickerProps = {
     image?: string;
     className?: string;
     onReset: () => void;
-    onImageChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    onImageChange: (file: string) => void;
 };
 
 export default function CustomFilePicker({
@@ -53,7 +53,13 @@ export default function CustomFilePicker({
                 <input
                     ref={fileInputRef}
                     type="file"
-                    onChange={(e) => onImageChange(e)}
+                    onChange={(e) => {
+                        if (e.target.files && e.target.files[0]) {
+                            onImageChange(
+                                URL.createObjectURL(e.target.files[0]),
+                            );
+                        }
+                    }}
                     className="hidden"
                 />
             </Row>

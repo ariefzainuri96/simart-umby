@@ -1,5 +1,8 @@
-import { ProfileInstitusiForm } from "@/features/(main)/konfigurasi-umum/profile-institusi/model/profile-institusi-form";
-import { useState } from "react";
+import {
+    ProfileInstitusiForm,
+    SiteConfiguration,
+} from "@/features/(main)/konfigurasi-umum/profile-institusi/model/profile-institusi-form";
+import React, { useState } from "react";
 
 export default function useProfileInstitusi() {
     const [form, setForm] = useState<ProfileInstitusiForm>({
@@ -19,7 +22,9 @@ export default function useProfileInstitusi() {
     }
 
     function handleSiteConfigurationChange(
-        e: React.ChangeEvent<HTMLInputElement>,
+        e:
+            | React.ChangeEvent<HTMLInputElement>
+            | React.ChangeEvent<HTMLTextAreaElement>,
     ) {
         const { name, value } = e.target;
 
@@ -34,7 +39,10 @@ export default function useProfileInstitusi() {
         });
     }
 
-    function updateSiteConfiguration(cName: string, cValue: any) {
+    function updateSiteConfiguration(
+        cName: keyof SiteConfiguration,
+        cValue: any,
+    ) {
         setForm((form) => {
             return {
                 ...form,
